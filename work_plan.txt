@@ -1,0 +1,7 @@
+A number of individual components underlie a single-cycle MIPS-subset CPU. Many of these we should be able to modify directly from previous labs or homework. 
+
+The CPU requires a variety of memory modules [PC, Instruction Memory, Data Memory, Registers], some arithmetical/manipulation modules [ALU, adders, sign extension , bit shift], a finite state machine to manage control signals, and an assortment of multiplexers. 
+
+We have a 32-bit ALU from Lab1. From Lab3 we have a Data Memory module. From HW4 we have MUX implementations and a register with two read ports and one write port. From either Lab1 or Lab0 we can modify adders to be used in incrementing the PC. From Lab2 we have perhaps a framework of how to architect a control FSM.  We will need to create and test new modules to shift data left by two bits and a new module to sign extend 16-bit data to 32-bit data. 
+
+MUX, Adder, Instruction Memory, Registers, PC, Data Memory, ALU, Sign Extension, Double Left Shift 
