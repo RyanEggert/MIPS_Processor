@@ -11,42 +11,87 @@
 // This is because there is no NAND function code in the MIPS ISA.
 
 //----------------------------------------------------------------------------
-// MIPS ALU
-//   Translates 6-bit function codes from ADD, SUB, AND, OR, XOR, NOR, SLT
-//   instructions to 3-bit ALU control codes. 
+//  MIPS ALU
+//      Arithmetic Logic Unit with ADD, SUB, XOR, SLT, AND, NOR, OR
+//      operations. Operations are specificed by a three-bit binary alu_ctl
+//      code.  
+//   
 //   
 //----------------------------------------------------------------------------
-module MIPSALU (ALUctl, A, B, ALUOut, Zero);
-    input [3:0] ALUctl;
-    input [31:0] A,B;
-    output reg [31:0] ALUOut;
-    output Zero;
-    assign Zero = (ALUOut==0); //Zero is true if ALUOut is 0
-    always @(ALUctl, A, B) begin //reevaluate if these change
-    case (ALUctl)
-        `AND: ALUOut <= A & B;          // AND
-        `OR: ALUOut <= A | B;           // OR
-        `XOR: ALUOut <= A ^ B;          // XOR
-        `ADD: ALUOut <= A + B;          // ADD
-        `SUB: ALUOut <= A - B;          // SUB
-        `SLT: ALUOut <= A < B ? 1 : 0;  // SLT
-        `NOR: ALUOut <= ~(A | B);       // NOR
-        default: ALUOut <= 0;           // Something's wrong.
-    endcase
+module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
+    input [3:0] alu_ctl;
+    input [31:0] a,b;
+    input cin;
+
+    output reg [31:0] alu_res;
+    output zero, ovf, cout;
+
+    
+
+    always @(alu_ctl, a, b, cin) begin 
+        case (alu_ctl)
+            `AND:   begin
+                alu_res = a & b;        // AND
+                cout = 0;
+                ovf = 0;
+            end
+
+            `OR:    begin
+                alu_res = a | b;        // OR
+                cout = 0;
+                ovf = 0;
+            end
+
+            `XOR:   begin
+                alu_res = a ^ b;        // XOR
+                cout = 0;
+                ovf = 0;
+            end
+
+            `NOR: begin 
+                alu_res = ~(a | b);     // NOR
+                cout = 0;
+                ovf = 0;
+            end    
+
+            `ADD:   begin
+                {cout, alu_res} = a + b + cin;          // ADD + set carryout
+                ovf = a[31] & b[31] & ~alu_res[31] 
+                    | ~a[31] & ~b[31] & alu_res[31];    // Set overflow
+            end
+
+            `SUB:   begin
+                {cout, alu_res} = a - b;
+                ovf = a[31] & ~b[31] & alu_res[31]      // SUB + set carryout
+                    | ~a[31] & b[31] & ~alu_res[31];    // Set overflow
+            end
+
+            `SLT:   begin 
+                alu_res = a < b ? 1 : 0;    // SLT
+                cout = 0;
+                ovf = 0;
+            end
+            
+            default: alu_res = 0;           // Something's wrong.
+        endcase
+
+        // always set zero flag
+        zero = ~| alu_res; // zero is reduction NOR of ALUout
+
     end
 endmodule
 
 //----------------------------------------------------------------------------
-// ALU Control
-//   Translates 6-bit function codes from ADD, SUB, AND, OR, XOR, NOR, SLT
-//   instructions to 3-bit ALU control codes. 
+//  ALU Control
+//      Translates 6-bit MIPS function codes [ALUOp] from ADD, SUB, AND, OR,
+//      XOR, NOR, SLT instructions to 3-bit ALU control codes. 
 //   
 //----------------------------------------------------------------------------
-module ALUControl(ALUCtl, FuncCode);
+module ALUControl(ALUCtl, ALUOp);
     output [2:0] reg ALUCtl;
-    input [5:0] FuncCode;
+    input [5:0] ALUOp;
     
-    always case (FuncCode)
+    always case (ALUOp)
         6'h20: ALUCtl <=`ADD;       // add
         6'h22: ALUCtl <=`SUB;       //subtract
         6'h24: ALUCtl <=`AND;       // and
