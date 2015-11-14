@@ -60,7 +60,6 @@ module test_muxes();
             mux5passed = 0;
             $display("Test 2 failed by mux5. [out = %d]; expected = %d", out_5, din1_5);
         end
-
         
         #1
         $display("Tests Complete @time = %0dns.", $time);

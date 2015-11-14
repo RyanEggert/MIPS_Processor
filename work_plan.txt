@@ -4,14 +4,14 @@ The CPU requires a variety of memory modules [PC, Instruction Memory, Data Memor
 
 We have a 32-bit ALU from Lab1. From Lab3 we have a Data Memory module. From HW4 we have MUX implementations and a register with two read ports and one write port. From either Lab1 or Lab0 we can modify adders to be used in incrementing the PC. From Lab2 we have perhaps a framework of how to architect a control FSM.  We will need to create and test new modules to shift data left by two bits and a new module to sign extend 16-bit data to 32-bit data. 
 
-On Friday in class, we will be writing an assembly test program. With any luck, this will be finished in class, but it must be finished and pull-requesteed to the class repository by Sunday evening 5pm.
+On Friday in class, we will be writing an assembly test program. With any luck, this will be finished in class, but it must be finished and pull-requested to the class repository by Sunday evening 5pm.
 We estimate this will take about 12-16 team hours and the whole team will contribute to this. 
 
 By Monday evening, we should have each of these components built. We can then target Wednesday evening for connecting these components together and preparing the system for tests; simultaneously, someone should look into MARS and make sure that our programs are properly compiled and ready to be loaded into memory (see info on $readmemh).
 
 We will be splitting the components into groups and having each group prepare the different components.  	
 ALU: 8 team hours [Ryan]
-Data Memory: 4 team hours 
+Data Memory: 4 team hours [Ryan]
 MUX: 2 team hours [Ryan]
 Register: 4 team hours
 PC + Instr. Decode: 5 team hours
