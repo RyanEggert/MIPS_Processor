@@ -17,7 +17,7 @@ Register: 4 team hours [Ryan]
 PC + Instr. Decode: 5 team hours
 FSM: 8 team hours
 Sign Extending: 2 team hours
-Shift Data: 2 team hours
+Shift Data: 2 team hours [Ryan]
 
 At this point, we would like to check with the ninjas, if we have not already done so. 
 
