@@ -16,6 +16,7 @@ module test_alu;
     wire          cout;
     wire          zero;
     wire          ovf;
+    
     reg[31:0]     opA;
     reg[31:0]     opB;
     reg[2:0]      cmd;

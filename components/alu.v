@@ -16,7 +16,6 @@
 //      operations. Operations are specificed by a three-bit binary alu_ctl
 //      code.  
 //   
-//   
 //----------------------------------------------------------------------------
 module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
     input [2:0] alu_ctl;
