@@ -10,11 +10,11 @@ We estimate this will take about 12-16 team hours and the whole team will contri
 By Monday evening, we should have each of these components built. We can then target Wednesday evening for connecting these components together and preparing the system for tests; simultaneously, someone should look into MARS and make sure that our programs are properly compiled and ready to be loaded into memory (see info on $readmemh).
 
 We will be splitting the components into groups and having each group prepare the different components.  	
-ALU: 8 team hours
-Data Memory: 4 team hours
-MUX: 2 team hours
+ALU: 8 team hours [Ryan]
+Data Memory: 4 team hours 
+MUX: 2 team hours [Ryan]
 Register: 4 team hours
-PC: 2 team hours
+PC + Instr. Decode: 5 team hours
 FSM: 8 team hours
 Sign Extending: 2 team hours
 Shift Data: 2 team hours
