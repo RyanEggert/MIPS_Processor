@@ -56,13 +56,13 @@ module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
             `ADD:   begin
                 {cout, alu_res} = a + b + cin;          // ADD + set carryout
                 ovf = a[31] & b[31] & ~alu_res[31] 
-                    | ~a[31] & ~b[31] & alu_res[31];    // Set overflow
+                    | ~a[31] & ~b[31] & alu_res[31];    // Set overflow*
             end
 
             `SUB:   begin
                 {cout, alu_res} = a - b;
                 ovf = a[31] & ~b[31] & alu_res[31]      // SUB + set carryout
-                    | ~a[31] & b[31] & ~alu_res[31];    // Set overflow
+                    | ~a[31] & b[31] & ~alu_res[31];    // Set overflow*
             end
 
             `SLT:   begin 
@@ -104,3 +104,6 @@ module ALUControl(alu_ctl, alu_op);
         default: alu_ctl <= `ERROR;  // should not happen
     endcase
 endmodule
+
+// * ADD/SUB overflow detection inspired by
+// http://www.ece.lsu.edu/ee3755/2012f/l05.v.html
