@@ -19,12 +19,12 @@
 //   
 //----------------------------------------------------------------------------
 module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
-    input [3:0] alu_ctl;
+    input [2:0] alu_ctl;
     input [31:0] a,b;
     input cin;
 
     output reg [31:0] alu_res;
-    output zero, ovf, cout;
+    output reg zero, ovf, cout;
 
     
 
@@ -72,7 +72,10 @@ module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
                 ovf = 0;
             end
             
-            default: alu_res = 0;           // Something's wrong.
+            default: begin
+                alu_res = 0;           // Something's wrong.
+                $display("ERROR [@t=%0dns]: ALU default case triggered.", $time); // Print error message to console
+            end
         endcase
 
         // always set zero flag
@@ -83,22 +86,22 @@ endmodule
 
 //----------------------------------------------------------------------------
 //  ALU Control
-//      Translates 6-bit MIPS function codes [ALUOp] from ADD, SUB, AND, OR,
+//      Translates 6-bit MIPS function codes [alu_op] from ADD, SUB, AND, OR,
 //      XOR, NOR, SLT instructions to 3-bit ALU control codes. 
 //   
 //----------------------------------------------------------------------------
-module ALUControl(ALUCtl, ALUOp);
-    output [2:0] reg ALUCtl;
-    input [5:0] ALUOp;
+module ALUControl(alu_ctl, alu_op);
+    output reg[2:0]  alu_ctl;
+    input [5:0] alu_op;
     
-    always case (ALUOp)
-        6'h20: ALUCtl <=`ADD;       // add
-        6'h22: ALUCtl <=`SUB;       //subtract
-        6'h24: ALUCtl <=`AND;       // and
-        6'h25: ALUCtl <=`OR;        // or
-        6'h26: ALUCtl <=`XOR;       // XOR
-        6'h27: ALUCtl <=`NOR;       // nor
-        6'h2A: ALUCtl <=`SLT;       // slt
-        default: ALUCtl <= `ERROR;  // should not happen
+    always case (alu_op)
+        6'h20: alu_ctl <=`ADD;       // add
+        6'h22: alu_ctl <=`SUB;       //subtract
+        6'h24: alu_ctl <=`AND;       // and
+        6'h25: alu_ctl <=`OR;        // or
+        6'h26: alu_ctl <=`XOR;       // XOR
+        6'h27: alu_ctl <=`NOR;       // nor
+        6'h2A: alu_ctl <=`SLT;       // slt
+        default: alu_ctl <= `ERROR;  // should not happen
     endcase
 endmodule
