@@ -4,7 +4,9 @@
 //   data_out always has the value mem[address]
 //      If write_en is true, writes data_in to memory[address].
 //      If read_en is true, reads memory[address] to data_out. 
-//      Else data_out = `width`'bz
+//      Else data_out = `width`'bz.
+//   Parameter default values will support 32-bit addresses and 32-bit data.
+//
 //------------------------------------------------------------------------------
 
 module datamemory

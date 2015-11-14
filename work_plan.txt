@@ -13,7 +13,7 @@ We will be splitting the components into groups and having each group prepare th
 ALU: 8 team hours [Ryan]
 Data Memory: 4 team hours [Ryan]
 MUX: 2 team hours [Ryan]
-Register: 4 team hours
+Register: 4 team hours [Ryan]
 PC + Instr. Decode: 5 team hours
 FSM: 8 team hours
 Sign Extending: 2 team hours
