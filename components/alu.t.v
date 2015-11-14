@@ -1,15 +1,8 @@
 // alu.t.v
 `include "alu.v"
+`include "includes/alucontrols.v" // Define ALUCtl codes [modified from Lab1]
 
-// Define ALUCtl codes [modified from Lab1]
-`define ADD  3'd0
-`define SUB  3'd1
-`define XOR  3'd2
-`define SLT  3'd3
-`define AND  3'd4
-`define ERROR 3'd5
-`define NOR  3'd6
-`define OR   3'd7
+// ALU Test Code modified from Ryan Eggert's Lab1 assignment [Eggert, Skikne, McCauley].
 
 module test_alu;
     wire[31:0]    res;

@@ -1,7 +1,6 @@
 // datamemory.t.v
 `include "datamemory.v"
 
-
 module test_datamemory();
     reg           clk;
     reg[31:0]     address;

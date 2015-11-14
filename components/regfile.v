@@ -1,3 +1,5 @@
+// Register File code modified from Ryan Eggert's Homework 4 assignment.
+
 //------------------------------------------------------------------------------
 //  regfile
 //      MIPS register file

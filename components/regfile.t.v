@@ -1,5 +1,6 @@
 // regfile.t.v
 `include "regfile.v"
+// Register File test code modified from Ryan Eggert's Homework 4 assignment.
 
 module test_regfile();
 

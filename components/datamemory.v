@@ -1,3 +1,4 @@
+// Data Memory code modified from Lab2 resources.
 //------------------------------------------------------------------------------
 // Data Memory
 //   Positive edge triggered
