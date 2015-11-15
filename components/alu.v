@@ -15,8 +15,6 @@ module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
     output reg [31:0] alu_res;
     output reg zero, ovf, cout;
 
-    
-
     always @(alu_ctl, a, b, cin) begin 
         case (alu_ctl)
             `AND:   begin
