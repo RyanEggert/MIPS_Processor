@@ -30,18 +30,11 @@ module runalltests();
 
         if (& dutspassed) begin
             $display("All tests passed!");
-            $display("Test result vector: %b", dutspassed);
+            $display("[Test result vector: %b]", dutspassed);
 
         end else begin
-            $display("WARNING: Tests failed.");
-            $display("Test result vector: %b", dutspassed);
+            $display("WARNING: Some tests failed.");
+            $display("[Test result vector: %b]", dutspassed);
         end
     end
 endmodule
-
-// module initialize_wire(one_wire);
-//     output reg[31:0] one_wire;
-//     always begin
-//         one_wire <= 32'hFFFFFFFF;
-//     end
-// endmodule

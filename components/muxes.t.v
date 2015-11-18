@@ -34,45 +34,45 @@ module test_muxes(mux32passed, mux5passed);
         din0_5 = 5'd10;
         din1_5 =5'd20;
 
-        // Test 1
-        $display("Starting Test 1 @time = %0dns...", $time);
+        // MUX Test 1
+        $display("Starting MUX Test 1 @time = %0dns...", $time);
         mux_ctl = 0;
         #1
         if (out_32 != din0_32) begin
             mux32passed = 0;
-            $display("Test 1 failed by mux32.");
+            $display("MUX Test 1 failed by mux32.");
         end
         if (out_5 != din0_5) begin
             mux5passed = 0;
-            $display("Test 1 failed by mux5.");
+            $display("MUX Test 1 failed by mux5.");
         end
         #1
 
-        // Test 2
-        $display("Starting Test 2 @time = %0dns...", $time);
+        // MUX Test 2
+        $display("Starting MUX Test 2 @time = %0dns...", $time);
         mux_ctl = 1;
         #1
         if (out_32 != din1_32) begin
             mux32passed = 0;
-            $display("Test 2 failed by mux32. [out = %d; expected = %d]", out_32, din1_32);
+            $display("MUX Test 2 failed by mux32. [out = %d; expected = %d]", out_32, din1_32);
         end
         if (out_5 != din1_5) begin
             mux5passed = 0;
-            $display("Test 2 failed by mux5. [out = %d]; expected = %d", out_5, din1_5);
+            $display("MUX Test 2 failed by mux5. [out = %d]; expected = %d", out_5, din1_5);
         end
         
         #1
-        $display("Tests Complete @time = %0dns.", $time);
+        $display("MUX Tests Complete @time = %0dns.", $time);
         if (mux32passed == 1) begin
-            $display("mux32 PASSED");
+            $display("\tmux32 PASSED");
         end else begin
-            $display("mux32 FAILED");
+            $display("\tmux32 FAILED");
         end
 
         if (mux5passed == 1) begin
-            $display("mux5 PASSED");
+            $display("\tmux5 PASSED");
         end else begin
-            $display("mux5 FAILED");
+            $display("\tmux5 FAILED");
         end
     end
     

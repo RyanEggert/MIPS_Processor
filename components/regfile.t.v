@@ -16,7 +16,7 @@ module test_regfile(dutpassed);
     reg           begintest;      // Set High to begin testing register file
     output wire    dutpassed;      // Indicates whether register file passed tests
 
-    // Instantiate the register file being tested.  DUT = Device Under Test
+    // Instantiate the register file being tested.  DUT = Device Under REGISTER FILE Test
     regfile DUT(
             .ReadData1(ReadData1),
             .ReadData2(ReadData2),
@@ -43,7 +43,7 @@ module test_regfile(dutpassed);
                     .Clk(Clk)
                     );
 
-    // Test harness asserts 'begintest' for 1000 time steps, starting at time 10
+    // REGISTER FILE Test harness asserts 'begintest' for 1000 time steps, starting at time 10
     initial begin
     begintest=0;
     #10;
@@ -53,11 +53,11 @@ module test_regfile(dutpassed);
 
     // Display test results ('dutpassed' signal) once 'endtest' goes high
     always @(posedge endtest) begin
-        $display("Tests Complete @time = %0dns.", $time);
+        $display("REGISTER FILE Tests Complete @time = %0dns.", $time);
         if (dutpassed == 1) begin
-            $display("Device PASSED");
+            $display("\tREGISTER FILE PASSED");
         end else begin
-            $display("Device FAILED");
+            $display("\tREGISTER FILE FAILED");
         end
     end
 
@@ -65,7 +65,7 @@ endmodule
 
 module regfiletestbench
 (
-// Test bench driver signal connections
+// REGISTER FILE Test bench driver signal connections
 input   begintest,// Triggers start of testing
 output reg endtest,// Raise once test completes
 output reg dutpassed,// Signal test result
@@ -97,10 +97,10 @@ output reg          Clk
         dutpassed = 1;
         #10
 
-        // Test Case 1: 
+        // REGISTER FILE Test Case 1: 
         //   Write '42' to register 2, verify with Read Ports 1 and 2
         //   (Passes because example register file is hardwired to return 42)
-        $display("Test 1: testing read/write");
+        $display("REGISTER FILE Test 1: testing read/write");
         WriteRegister = 5'd2;
         WriteData = 32'd42;
         RegWrite = 1;
@@ -111,13 +111,13 @@ output reg          Clk
         // Verify expectations and report test result
         if((ReadData1 != 42) || (ReadData2 != 42)) begin
             dutpassed = 0;// Set to 'false' on failure
-            $display("Test Case 1 Failed");
+            $display("REGISTER FILE Test Case 1 Failed");
         end
 
-        // Test Case 2: 
+        // REGISTER FILE Test Case 2: 
         //   Write '15' to register 2, verify with Read Ports 1 and 2
         //   (Fails with example register file, but should pass with yours)
-        $display("Test 2: testing read/write");
+        $display("REGISTER FILE Test 2: testing read/write");
         WriteRegister = 5'd2;
         WriteData = 32'd15;
         RegWrite = 1;
@@ -127,13 +127,13 @@ output reg          Clk
 
         if((ReadData1 != 15) || (ReadData2 != 15)) begin
             dutpassed = 0;
-            $display("Test Case 2 Failed");
+            $display("REGISTER FILE Test Case 2 Failed");
         end
 
-        // Test Case 3:
+        // REGISTER FILE Test Case 3:
         //    Input '29' to register 12, but write is disabled.
         //    Try to read from register 12, should not see '29'.
-        $display("Test 3: testing write enable");
+        $display("REGISTER FILE Test 3: testing write enable");
         WriteRegister=5'd12;
         WriteData = 32'd29;
         RegWrite = 0;
@@ -143,14 +143,14 @@ output reg          Clk
 
         if ((ReadData1 == 29) || (ReadData2 == 29)) begin
             dutpassed = 0;
-            $display("Test Case 3 Failed");
+            $display("REGISTER FILE Test Case 3 Failed");
         end
 
-        // Test Case 4:
-        //    Test decoder. If decoder is broken, we will write to the improper
+        // REGISTER FILE Test Case 4:
+        //    REGISTER FILE Test decoder. If decoder is broken, we will write to the improper
         //    register(s). To test, try to write '1' to register 1. If 1 is read
         //    from at least one other register, there has been a problem
-        $display("Test 4: testing decoder + all registers");
+        $display("REGISTER FILE Test 4: testing decoder + all registers");
         WriteRegister = 5'd1;
         WriteData = 32'd1;
         // For loops only work in SystemVerilog? Hmm?
@@ -159,7 +159,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 3;
@@ -167,7 +167,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 5;
@@ -175,7 +175,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 7;
@@ -183,7 +183,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 9;
@@ -191,7 +191,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 11;
@@ -199,7 +199,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 13;
@@ -207,7 +207,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 15;
@@ -215,7 +215,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 17;
@@ -223,7 +223,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 19;
@@ -231,7 +231,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 21;
@@ -239,7 +239,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 23;
@@ -247,7 +247,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 25;
@@ -255,7 +255,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 27;
@@ -263,7 +263,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 29;
@@ -271,7 +271,7 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
         ReadRegister1 = 31;
@@ -279,14 +279,14 @@ output reg          Clk
         #5 Clk=1; #5 Clk=0; 
         if ((ReadData1==1 ) || (ReadData2==1)) begin
             dutpassed = 0;
-            $display("Test Case 4 Failed");
+            $display("REGISTER FILE Test Case 4 Failed");
         end
 
-        // Test Case 5:
+        // REGISTER FILE Test Case 5:
         //    Check the zero register. Attempt to write and read.
         //    Try to write '500' to register 0. Try to read from
         //    register 0.
-        $display("Test 5: testing zero register");
+        $display("REGISTER FILE Test 5: testing zero register");
         WriteRegister=5'd0;
         WriteData = 32'd500;
         RegWrite = 1;
@@ -296,15 +296,15 @@ output reg          Clk
 
         if ((ReadData1 != 0) || (ReadData2 != 0)) begin
             dutpassed = 0;
-            $display("Test Case 5 Failed");
+            $display("REGISTER FILE Test Case 5 Failed");
         end
 
-        // Test Case 6:
+        // REGISTER FILE Test Case 6:
         //    Check the read ports. Attempt to write and read.
         //    Try to write '500' to register 0. Try to read from
         //    register 0.
-        $display("Test 6: testing ports");
-        $display("Test 6.1: Write and confirm read to register 17");
+        $display("REGISTER FILE Test 6: testing ports");
+        $display("REGISTER FILE Test 6.1: Write and confirm read to register 17");
         WriteRegister=5'd17;
         WriteData = 32'd1234;
         RegWrite = 1;
@@ -314,10 +314,10 @@ output reg          Clk
 
         if ((ReadData1 != 1234) || (ReadData2 != 1234)) begin
             dutpassed = 0;
-            $display("Test Case 6.1 Failed");
+            $display("REGISTER FILE Test Case 6.1 Failed");
         end
 
-        $display("Test 6.2: check that other ports do not read from port 17 (e.g.)");
+        $display("REGISTER FILE Test 6.2: check that other ports do not read from port 17 (e.g.)");
         WriteRegister=5'd17;
         WriteData = 32'd1334;
         RegWrite = 0;
@@ -327,7 +327,7 @@ output reg          Clk
 
         if ((ReadData1 == 1234) || (ReadData2 == 1234)) begin
             dutpassed = 0;
-            $display("Test Case 6.2 Failed");
+            $display("REGISTER FILE Test Case 6.2 Failed");
         end
 
         // All done!  Wait a moment and signal test completion.
