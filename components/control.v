@@ -103,7 +103,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             
             MemWrite = 0;
             ALUSrc = 1;
-            RegWrite = 0;
+            RegWrite = 1;
             
         end
         More: begin 
@@ -160,15 +160,24 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                     $finish;            
                 end
             NOOP:  begin
+
+                RegDst = 2'b00;
                 Jump = 0;
                 Branch = 0;
+                MemRead = 0;
+                MemtoReg = 0;
                 ALUOp = 6'b101100;
+                
                 MemWrite = 0;
                 ALUSrc = 0;
-                RegWrite = 0; 
+                RegWrite = 0;
+                WriDataSel = 0;
+                JumpSel = 0; 
             end
-        end
+            endcase
+        end 
 
+        endcase
 
 
 
