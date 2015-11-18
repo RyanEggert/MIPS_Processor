@@ -1,4 +1,4 @@
-module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, RegDst, WriDataSel, ALUOp, opcode, funct; clk);
+module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, RegDst, WriDataSel, ALUOp, opcode, funct, clk);
     input clk;
     input[5:0] opcode, funct;
 
