@@ -8,7 +8,7 @@
 //   
 //----------------------------------------------------------------------------
 module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
-    input [2:0] alu_ctl;
+    input [3:0] alu_ctl;
     input [31:0] a,b;
     input cin;
 
@@ -85,7 +85,7 @@ endmodule
 //   
 //----------------------------------------------------------------------------
 module ALUControl(alu_ctl, alu_op);
-    output reg[2:0]  alu_ctl;
+    output reg[3:0]  alu_ctl;
     input [5:0] alu_op;
     
     always case (alu_op)
