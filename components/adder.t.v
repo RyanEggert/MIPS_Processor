@@ -1,12 +1,12 @@
 // adder.t.v
 `include "adder.v"
 
-module test_adder();
+module test_adder(dutpassed);
     reg[31:0]   a;
     reg[31:0]   b;
     wire[31:0]  sum;
 
-    reg dutpassed;
+    output reg dutpassed;
 
     adder dut (
                     .sum(sum),

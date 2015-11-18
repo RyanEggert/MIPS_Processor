@@ -9,9 +9,9 @@
 //------------------------------------------------------------------------------
 module  mux_2d#(parameter width = 32)(mux_out, mux_ctl, din0, din1);
     input mux_ctl;
-    input [w-1:0] din0, din1;
+    input [width-1:0] din0, din1;
 
-    output reg[w-1:0] mux_out;
+    output reg[width-1:0] mux_out;
 
     always @ (mux_ctl or din0 or din1)
     begin

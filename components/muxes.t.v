@@ -2,7 +2,7 @@
 `include "muxes.v"
 
 
-module test_muxes();
+module test_muxes(mux32passed, mux5passed);
     wire[31:0] out_32;
     wire[4:0] out_5;
 
@@ -10,7 +10,7 @@ module test_muxes();
     reg[4:0] din0_5, din1_5;
     reg mux_ctl;
 
-    reg mux32passed, mux5passed;
+    output reg mux32passed, mux5passed;
 
     mux_2d #(32) mux_32 (.mux_out(out_32),
                          .mux_ctl(mux_ctl),

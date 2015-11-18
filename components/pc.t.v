@@ -1,12 +1,12 @@
 // pc.t.v
 `include "pc.v"
 
-module test_pc();
+module test_pc(dutpassed);
     reg clk , reset;
     reg [31:0] pcin;
     wire [31:0]  pcout;
 
-    reg dutpassed;
+    output reg dutpassed;
 
     pc dut (
         .clk(clk),
