@@ -33,6 +33,5 @@ module instructiondecode(opcode, rs, rt, rd, shamt, funct, imm16, address, clk, 
 
         // J type instructions ONLY
         address <= instr[25:0];
-
     end
 endmodule

@@ -12,36 +12,30 @@ module runalltests();
     wire[9:0] dutspassed;
     // initialize_wire wire_inits (dutspassed);
     // assign dutspassed = {32{1'b1}};
-    test_adder tests0 (dutspassed[0]);
-    test_datamemory tests2 (dutspassed[1]);
-    test_instructiondecode tests3 (dutspassed[2]);
-    test_muxes tests4 (dutspassed[3], dutspassed[4]);
-    test_pc tests5 (dutspassed[5]);
-    test_regfile tests6 (dutspassed[6]);
-    test_shifter tests7 (dutspassed[7], dutspassed[8]);
-    test_signextend tests8 (dutspassed[9]);
+    test_adder test0 (dutspassed[0]);
+    test_datamemory test1 (dutspassed[1]);
+    test_instructiondecode test2 (dutspassed[2]);
+    test_muxes test3 (dutspassed[3], dutspassed[4]);
+    test_pc test4 (dutspassed[5]);
+    test_regfile test5 (dutspassed[6]);
+    test_shifter test6 (dutspassed[7], dutspassed[8]);
+    test_signextend test7 (dutspassed[9]);
+    // test_controls test8 (dutspassed[10]); To be uncommented once the central control logic test is stable.
     // test_alu tests1 (dutspassed[1]); // ALU testbench doesn't use DUTPassed schema. Run manually or re-write.
     initial begin
         $display("\nBEGIN ALL TESTS");
         $display("________________________________________________________________________________________");
-        #20000  // Be sure to give time for all above tests to complete
+        #20000  // Be sure to give sufficient time for all above tests to complete. If this isn't done, results will be unreliable.
         $display("________________________________________________________________________________________");
         $display("ALL TESTS COMPLETE");
 
         if (& dutspassed) begin
             $display("All tests passed!");
-            $display("Test result vector: %b", dutspassed);
+            $display("[Test result vector: %b]", dutspassed);
 
         end else begin
-            $display("WARNING: Tests failed.");
-            $display("Test result vector: %b", dutspassed);
+            $display("WARNING: Some tests may have failed.");
+            $display("[Test result vector: %b]", dutspassed); // If you see z's in your vector, check that a test is wired to that bit of the vector
         end
     end
 endmodule
-
-// module initialize_wire(one_wire);
-//     output reg[31:0] one_wire;
-//     always begin
-//         one_wire <= 32'hFFFFFFFF;
-//     end
-// endmodule
