@@ -58,6 +58,12 @@ module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
                 cout = 0;
                 ovf = 0;
             end
+
+            `NOOP:   begin 
+                alu_res = {32{1'bz}};    // NOOP
+                cout = 1'bz;
+                ovf = 1'bz;
+            end
             
             default: begin
                 alu_res = 0;           // Something's wrong.
@@ -74,7 +80,8 @@ endmodule
 //----------------------------------------------------------------------------
 //  ALU Control
 //      Translates 6-bit MIPS function codes [alu_op] from ADD, SUB, AND, OR,
-//      XOR, NOR, SLT instructions to 3-bit ALU control codes. 
+//      XOR, NOR, SLT instructions to 3-bit ALU control codes. Also translates
+//      0x2C to a NOOP code.
 //   
 //----------------------------------------------------------------------------
 module ALUControl(alu_ctl, alu_op);
@@ -89,6 +96,7 @@ module ALUControl(alu_ctl, alu_op);
         6'h26: alu_ctl <=`XOR;       // XOR
         6'h27: alu_ctl <=`NOR;       // nor
         6'h2A: alu_ctl <=`SLT;       // slt
+        6'h2C: alu_ctl <= `NOOP;     // no operation
         default: alu_ctl <= `ERROR;  // should not happen
     endcase
 endmodule

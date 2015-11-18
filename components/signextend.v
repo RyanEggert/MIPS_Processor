@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------
-//  Sign
+//  signextend
 //      Adds a and b and outputs their sum to sum. The `width` parameter
 //      (default value 32) specifies the width, in bits, of a, b, and sum.
 //   
