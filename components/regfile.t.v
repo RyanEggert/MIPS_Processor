@@ -2,7 +2,7 @@
 `include "regfile.v"
 // Register File test code modified from Ryan Eggert's Homework 4 assignment.
 
-module test_regfile();
+module test_regfile(dutpassed);
 
     wire[31:0]    ReadData1;      // Data from first register read
     wire[31:0]    ReadData2;      // Data from second register read
@@ -14,7 +14,7 @@ module test_regfile();
     wire          Clk;            // Clock (Positive Edge Triggered)
 
     reg           begintest;      // Set High to begin testing register file
-    wire          dutpassed;      // Indicates whether register file passed tests
+    output wire    dutpassed;      // Indicates whether register file passed tests
 
     // Instantiate the register file being tested.  DUT = Device Under Test
     regfile DUT(

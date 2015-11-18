@@ -1,7 +1,7 @@
 // datamemory.t.v
 `include "datamemory.v"
 
-module test_datamemory();
+module test_datamemory(dutpassed);
     reg           clk;
     reg[31:0]     address;
     reg           write_en;
@@ -9,7 +9,7 @@ module test_datamemory();
     reg[31:0]     data_in;
     wire[31:0]    data_out;
 
-    reg dutpassed;
+    output reg dutpassed;
 
     datamemory dut (
                     .clk(clk),

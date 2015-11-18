@@ -1,7 +1,7 @@
 // instructiondecode.t.v
 `include "instructiondecode.v"
 
-module test_instructiondecode();
+module test_instructiondecode(dutpassed);
     reg clk;
     reg[31:0] instr;
 
@@ -10,7 +10,7 @@ module test_instructiondecode();
     wire[15:0] imm16;
     wire[25:0] address;
 
-    reg dutpassed;
+    output reg dutpassed;
 
     instructiondecode dut (
                     .opcode(opcode),

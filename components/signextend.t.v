@@ -1,11 +1,11 @@
 // signextend.t.v
 `include "signextend.v"
 
-module test_signextend();
+module test_signextend(dutpassed);
     reg[15:0]   in;
     wire[31:0]  out;
 
-    reg dutpassed;
+    output reg dutpassed;
 
     signextend dut (
                     .in16(in),

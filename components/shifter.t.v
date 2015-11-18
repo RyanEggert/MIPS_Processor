@@ -1,14 +1,14 @@
 // shifter.t.v
 `include "shifter.v"
 
-module test_shifter();
+module test_shifter(dutpassed, dut2passed);
     reg[31:0]   in;
     wire[31:0]  out;
 
     reg[25:0]   in_2;
     wire[27:0]  out_2;
 
-    reg dutpassed, dut2passed;
+    output reg dutpassed, dut2passed;
 
     shift2 dut1 (
         .in(in),
