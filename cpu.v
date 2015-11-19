@@ -71,13 +71,14 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     wire[3:0] ALUCtrlOut;
     wire[5:0] ALUOp;
 
+
     pc pc_comp (
         .clk(clk),
         .reset(reset),
-        .pcin(pcin),
+        .pcin(32'b0),
         .pcout(inst_addr)
         );
-
+    /*
     memory instruction_memory (
         .clk(clk),
         .address(inst_addr),
@@ -239,4 +240,8 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
         .funct(decoded_funct),
         .clk(clk)
         );
+        */
+    initial begin 
+        $display("Hello");
+    end
 endmodule
