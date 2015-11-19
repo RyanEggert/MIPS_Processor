@@ -2,8 +2,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
     input clk;
     input[5:0] opcode, funct;
 
-    output reg Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDataSel;
-    output reg[1:0] RegDst;
+    output reg Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDataSel, RegDst;
     output reg[5:0] ALUOp;
 
     parameter LW = 6'b100011, SW = 6'b101011, J = 6'b000010, JR = 6'b001000, JAL = 6'b000011 , BNE = 6'b000101, XORI = 6'b001110, 
@@ -67,7 +66,6 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             JumpSel = 0;
         end
         JAL: begin 
-            RegDst = 2'b10;
             Jump = 1;
             Branch = 0;
             MemRead = 0;
@@ -81,7 +79,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             JumpSel = 0;
         end
         BNE: begin 
-            RegDst = 2'b00;
+            RegDst = 0;
             Jump = 0;
             Branch = 1;
             MemRead = 0;
@@ -94,7 +92,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
 
         end
         XORI: begin 
-            RegDst = 2'b01 ;
+            RegDst = 1 ;
             Jump = 0;
             Branch = 0;
             MemRead = 0;
@@ -161,7 +159,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 end
             NOOP:  begin
 
-                RegDst = 2'b00;
+                RegDst = 0;
                 Jump = 0;
                 Branch = 0;
                 MemRead = 0;
