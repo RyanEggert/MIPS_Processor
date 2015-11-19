@@ -36,6 +36,18 @@ module cpu();
 //mux0
     wire[31:0] mux0out;
 
+//mux1
+    wire[31:0] mux1out;
+    
+//mux2
+    wire[31:0] mux2out;
+
+//mux3
+    wire[31:0] mux2out;
+
+//mux4
+    wire[31:0] mux2out;
+    
 //mux5
     wire[31:0] mux5out;
 
@@ -51,6 +63,8 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     wire[31:0] DataMemOut;
 
 //mux6
+    wire[31:0] mux6out;
+//mux7
     wire[31:0] mux6out;
 
 //ALUCtrl
