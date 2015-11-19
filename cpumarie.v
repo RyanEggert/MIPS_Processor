@@ -37,8 +37,9 @@ module cpu();
 
 //alu
     wire[31:0] ALUres;
-    wire zero;
-
+    wire zero, cin, cout, ovf;
+    assign cin = 0;
+  
 //datamemory
     wire[31:0] DataMemOut;
 
@@ -102,31 +103,47 @@ module cpu();
         );
 
     mux_2d mux0 (
-	.mux_ctl(), //Control
+	.mux_ctl(JumpSel), //Control
 	.din0({adder_pc_sum[31,28], shifter_pc_out}),
 	.din1(ReadData1),
 	.mux_out(mux0out)
 	);
 
+    and andgate(andout, Branch, zero);
+
     mux_2d mux1 (
-	.mux_ctl(), //And Gate
+	.mux_ctl(andout),
 	.din0(adder_pc_sum),
 	.din1(mux_1_1),
 	.mux_out(mux1out)
 	);
 
     mux_2d mux2 (
-	.mux_ctl(), //Control
+	.mux_ctl(Jump), 
 	.din0(mux1out),
 	.din1(mux0out),
 	.mux_out(mux2out)
 	);
 
+    mux_2d mux3 (
+	.mux_ctl(RegDst), 
+	.din0(decoded_rt),
+	.din1(decoded_rd), 
+	.mux_out(mux3out)
+	);
+
+    mux_2d mux4 (
+	.mux_ctl(Jump),
+	.din0(mux3out),
+	.din1(31),
+	.mux_out(mux4out)
+	);
+
     mux_2d mux7 (
-	.mux_ctl(), //Control
-	.din0(mux1out),
+	.mux_ctl(WriDataSel), 
+	.din0(adder_pc_sum),
 	.din1(mux0out),
-	.mux_out(mux2out)
+	.mux_out(mux7out)
 	);
 
 
@@ -137,51 +154,71 @@ module cpu();
     regfile regfile (
 	.ReadData1(ReadData1),
 	.ReadData2(ReadData2),
-	.WriteData(),
+	.WriteData(mux7out),
 	.ReadRegister1(decoded_rs),
 	.ReadRegister2(decoded_rt),
-	.WriteRegister(),
-	.RegWrite(),
+	.WriteRegister(mux4out),
+	.RegWrite(RegWrite), 
 	.Clk(clk)
 	);
 
     mux_2d mux5 (
-	.mux_ctl(),
+	.mux_ctl(ALUSrc), 
 	.din0(ReadData2),
 	.din1(imm32),
 	.mux_out(mux5out)
 	);
 
     MIPSALU alu_cpu (
-	.alu_ctl(), //from ALU Control
+	.alu_ctl(ALUCtrlOut), 
 	.a(ReadData1),
 	.b(mux5out),
-	.cin(), //none?
+	.cin(cin),
 	.alu_res(ALUres),
 	.zero(ALUzero),
-	.ovf(), //none?
-	.cout() //none?
+	.ovf(ovf),
+	.cout(cout)
 	);
 
     datamemory datamemory_cpu (
 	.clk(clk),
 	.address(ALUres),
 	.data_out(DataMemOut),
-	.write_en(), //Control
-	.read_en(), //Control
+	.write_en(MemWrite), //Control
+	.read_en(MemRead), //Control
 	.data_in(ReadData2)
 	);
 
     mux_2d mux6 (
-	.mux_ctl(), //Control
+	.mux_ctl(MemtoReg), //Control
 	.din0(ALUres),
 	.din1(DataMemOut),
 	.mux_out(mux6out)
 	);
 
     ALUControl ALUCtrl (
-	.alu_ctl(ALUCtrlOut) //4
-	.alu_op() //6
+	.alu_ctl(ALUCtrlOut),
+	.alu_op(ALUOp) 
+	);
+
+    control control_cpu (
+	.Jump(Jump),
+        .Branch(Branch),
+	.MemRead(MemRead),
+        .MemtoReg(MemtoReg),
+        .MemWrite(MemWrite),
+        .ALUSrc(ALUSrc),
+        .RegWrite(RegWrite),
+        .JumpSel(JumpSel),
+        .RegDst(RegDst),
+        .WriDataSel(WriDataSel),
+        .ALUOp(ALUOp),
+        .opcode(opcode),
+        .funct(funct),
+        .clk(clk)
+        );
+
+
 
     
 
