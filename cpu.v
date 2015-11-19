@@ -215,7 +215,6 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     );
 
     ALUControl ALUCtrl (
-        .clk(clk),
         .alu_ctl(ALUCtrlOut),
         .alu_op(ALUOp) 
     );
