@@ -75,7 +75,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     pc pc_comp (
         .clk(clk),
         .reset(reset),
-        .pcin(32'b0),
+        .pcin(pcin),
         .pcout(inst_addr)
         );
     /*
