@@ -9,7 +9,7 @@
 module memory
 #(
     parameter addresswidth  = 32,
-    parameter depth         = 2**addresswidth,
+    parameter depth         = 2**14,
     parameter width         = 32
 )
 (
@@ -21,6 +21,6 @@ module memory
     reg [width-1:0] mem [depth-1:0];
 
     assign data_out = mem[address];
-    // initial $readmemh(“/mem/instr.dat”, mem);
+    initial $readmemh("mem/instr.dat", mem); // Still throws "can not open in read mode" error?
 
 endmodule
