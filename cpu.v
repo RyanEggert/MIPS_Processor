@@ -34,22 +34,22 @@ module cpu();
     wire[31:0] ReadData1, ReadData2;
 
 //mux0
-    wire[31:0] mux0out;
+    wire[31:0] SelectedJump;
 
 //mux1
-    wire[31:0] mux1out;
+    wire[31:0] nonJumpPC;
     
 //mux2
-    wire[31:0] mux2out;
+    wire[31:0] PCUpdate;
 
 //mux3
-    wire[31:0] mux3out;
+    wire[31:0] SelectedWriteRegister1;
 
 //mux4
-    wire[31:0] mux4out;
+    wire[31:0] SelectedWriteRegister2;
     
 //mux5
-    wire[31:0] mux5out;
+    wire[31:0] ALU_B;
 
 //alu
     wire[31:0] ALUres;
@@ -65,7 +65,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
 //mux6
     wire[31:0] mux6out;
 //mux7 	
-    wire[31:0] mux7out;
+    wire[31:0] SelectedWriteData;
 
 //ALUCtrl
     wire[3:0] ALUCtrlOut;
@@ -127,7 +127,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     .mux_ctl(JumpSel), //Control
     .din0({{adder_pc_sum[31:28]}, shifter_pc_out}),
     .din1(ReadData1),
-    .mux_out(mux0out)
+    .mux_out(SelectedJump)
     );
 
     and andgate(andout, Branch, zero);
@@ -136,35 +136,35 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     .mux_ctl(andout),
     .din0(adder_pc_sum),
     .din1(mux_1_1),
-    .mux_out(mux1out)
+    .mux_out(nonJumpPC)
     );
 
     mux_2d mux2 (
     .mux_ctl(Jump), 
-    .din0(mux1out),
-    .din1(mux0out),
-    .mux_out(mux2out)
+    .din0(nonJumpPC),
+    .din1(SelectedJump),
+    .mux_out(PCUpdate)
     );
 
     mux_2d mux3 (
     .mux_ctl(RegDst), 
     .din0(decoded_rt),
     .din1(decoded_rd), 
-    .mux_out(mux3out)
+    .mux_out(SelectedWriteRegister1)
     );
 
     mux_2d mux4 (
     .mux_ctl(Jump),
-    .din0(mux3out),
+    .din0(SelectedWriteRegister1),
     .din1(31),
-    .mux_out(mux4out)
+    .mux_out(SelectedWriteRegister2)
     );
 
     mux_2d mux7 (
     .mux_ctl(WriDataSel), 
     .din0(adder_pc_sum),
-    .din1(mux0out),
-    .mux_out(mux7out)
+    .din1(mux6out),
+    .mux_out(SelectedWriteData)
     );
 
 
@@ -175,10 +175,10 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     regfile regfile (
     .ReadData1(ReadData1),
     .ReadData2(ReadData2),
-    .WriteData(mux7out),
+    .WriteData(SelectedWriteData),
     .ReadRegister1(decoded_rs),
     .ReadRegister2(decoded_rt),
-    .WriteRegister(mux4out),
+    .WriteRegister(SelectedWriteRegister2),
     .RegWrite(RegWrite), 
     .Clk(clk)
     );
@@ -187,13 +187,13 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     .mux_ctl(ALUSrc), 
     .din0(ReadData2),
     .din1(imm32),
-    .mux_out(mux5out)
+    .mux_out(ALU_B)
     );
 
     MIPSALU alu_cpu (
     .alu_ctl(ALUCtrlOut), 
     .a(ReadData1),
-    .b(mux5out),
+    .b(ALU_B),
     .cin(cin),
     .alu_res(ALUres),
     .zero(ALUzero),
