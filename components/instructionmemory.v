@@ -1,18 +1,26 @@
-//----------------------------------------------------------------------------
-//  memory
-//      Read-only memory initialized from a .dat file. Useful for instruction
-//      memory.
+//------------------------------------------------------------------------------
+// memory
+//   Simple read-only memory initialized from a .dat file.
+//   data_out always has the value mem[address]
+//   Parameter default values will support 32-bit addresses and 32-bit data.
 //
-//----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
-module memory(clk, Addr, DataOut);
-    input clk;
-    input[9:0] Addr;
-    output[31:0]  DataOut;
+module memory
+#(
+    parameter addresswidth  = 32,
+    parameter depth         = 2**addresswidth,
+    parameter width         = 32
+)
+(
+    output wire [width-1:0]      data_out,
+    input                       clk,
+    input [addresswidth-1:0]    address
+);
 
-    reg [31:0] mem[1023:0];  
+    reg [width-1:0] mem [depth-1:0];
 
-    initial $readmemh(“/mem/instr.dat”, mem);
+    assign data_out = mem[address];
+    // initial $readmemh(“/mem/instr.dat”, mem);
 
-    assign DataOut = mem[Addr];
 endmodule

@@ -14,8 +14,9 @@ ALU: 8 team hours [Ryan]
 Data Memory: 4 team hours [Ryan]
 MUX: 2 team hours [Ryan]
 Register: 4 team hours [Ryan]
-PC + Instr. Decode: 5 team hours
-Control Logic: 8 team hours
+PC + Instr. Decode: 5 team hours [Ryan]
+Instruction Memory: 1 team hour [Ryan]
+Control Logic: 8 team hours [Shane]
 Sign Extending: 2 team hours [Ryan]
 Adder(s): 1 team hours [Ryan]
 Shift Data: 2 team hours [Ryan]
