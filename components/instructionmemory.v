@@ -13,7 +13,7 @@ module memory
     parameter width         = 32
 )
 (
-    output wire [width-1:0]      data_out,
+    output wire [width-1:0]     data_out,
     input                       clk,
     input [addresswidth-1:0]    address
 );
