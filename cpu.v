@@ -43,10 +43,10 @@ module cpu();
     wire[31:0] PCUpdate;
 
 //mux3
-    wire[31:0] SelectedWriteRegister1;
+    wire[4:0] SelectedWriteRegister1;
 
 //mux4
-    wire[31:0] SelectedWriteRegister2;
+    wire[4:0] SelectedWriteRegister2;
     
 //mux5
     wire[31:0] ALU_B;
@@ -154,10 +154,10 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     .mux_out(SelectedWriteRegister1)
     );
 
-    mux_2d mux4 (
+    mux_2d #(.width(5)) mux4 (
     .mux_ctl(Jump),
     .din0(SelectedWriteRegister1),
-    .din1(31),
+    .din1(5'd31),
     .mux_out(SelectedWriteRegister2)
     );
 
