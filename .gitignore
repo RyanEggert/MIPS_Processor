@@ -4,7 +4,6 @@
 
 # ignore compilation output of ModelSim
 *.mti
-*.dat
 *.dbs
 *.psm
 *.bak
