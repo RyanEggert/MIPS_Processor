@@ -69,6 +69,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
 
 //ALUCtrl
     wire[3:0] ALUCtrlOut;
+    wire[5:0] ALUOp;
 
     pc pc_comp (
         .clk(clk),
@@ -146,7 +147,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     .mux_out(PCUpdate)
     );
 
-    mux_2d mux3 (
+    mux_2d #(.width(5)) mux3 (
     .mux_ctl(RegDst), 
     .din0(decoded_rt),
     .din1(decoded_rd), 
@@ -223,9 +224,9 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     );
 
     control control_cpu (
-    .Jump(Jump),
+        .Jump(Jump),
         .Branch(Branch),
-    .MemRead(MemRead),
+        .MemRead(MemRead),
         .MemtoReg(MemtoReg),
         .MemWrite(MemWrite),
         .ALUSrc(ALUSrc),
@@ -234,8 +235,8 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
         .RegDst(RegDst),
         .WriDataSel(WriDataSel),
         .ALUOp(ALUOp),
-        .opcode(opcode),
-        .funct(funct),
+        .opcode(decoded_opcode),
+        .funct(decoded_funct),
         .clk(clk)
         );
 endmodule
