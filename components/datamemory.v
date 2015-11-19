@@ -13,7 +13,7 @@
 module datamemory
 #(
     parameter addresswidth  = 32,
-    parameter depth         = 2**addresswidth,
+    parameter depth         = 2**14,
     parameter width         = 32
 )
 (
