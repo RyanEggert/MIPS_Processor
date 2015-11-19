@@ -45,6 +45,7 @@ module cpu();
         reg[31:0]   a;
     reg[31:0]   b;
     wire[31:0]  sum;
+     assign b = 32'd4;
 
     adder adder (
         .sum(sum),
