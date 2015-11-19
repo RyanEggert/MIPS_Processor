@@ -15,7 +15,8 @@ module cpu();
 	
 	reg clk;
 	reg reset;
-	wire [31:0] pcin, inst_addr, instr;
+	wire [31:0] pcin, inst_addr, instr, imm32, shifted_imm32, mux_1_1;
+    wire [27:0] shifter_pc_out;
 
     wire[5:0] decoded_opcode, decoded_funct;
     wire[4:0] decoded_rs, decoded_rt, decoded_rd, decoded_shamt;
@@ -23,7 +24,7 @@ module cpu();
     wire[25:0] decoded_address;
 
     wire[31:0]   b;
-    wire[31:0]  sum;
+    wire[31:0]  adder_pc_sum;
     assign b = 32'd4;
 
     pc pc_comp (
@@ -53,15 +54,34 @@ module cpu();
         );
 
     adder adder_pc (
-        .sum(sum),
+        .sum(adder_pc_sum),
         .a(instr),
         .b(b)
         );
 
-    shift2 shifter_pc (
-        .out(out),
+    adder adder_alures (
+        .sum(mux_1_1),
+        .a(adder_pc_sum),
+        .b(shifted_imm32)
+        );
+
+    shift2 #(.width_in(26), .width_out(28)) shifter_pc  (
+        .out(shifter_pc_out[27:0]),
         .in(decoded_address)
         );
+
+    shift2 #(.width_in(32), .width_out(32)) shifter_imm  (
+        .out(shifted_imm32),
+        .in(imm32)
+        );
+
+    signextend imm_signextend (
+        .out32(imm32),
+        .in16(decoded_imm16)
+        );
+
+    mux_2d mux0 ();
+
 
     initial clk=0;
     always #10 clk =! clk;
