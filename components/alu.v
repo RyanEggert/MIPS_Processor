@@ -84,13 +84,12 @@ endmodule
 //      0x2C to a NOOP code.
 //   
 //----------------------------------------------------------------------------
-module ALUControl(clk,alu_ctl, alu_op);
-    input clk;
+module ALUControl(alu_ctl, alu_op);
     output reg[3:0]  alu_ctl;
     input [5:0] alu_op;
     
    
-   always @(posedge clk) begin
+   always @(alu_op) begin
         case (alu_op)
             6'h20: alu_ctl <=`ADD;       // add
             6'h22: alu_ctl <=`SUB;       //subtract
