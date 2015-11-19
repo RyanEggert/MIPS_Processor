@@ -84,21 +84,25 @@ endmodule
 //      0x2C to a NOOP code.
 //   
 //----------------------------------------------------------------------------
-module ALUControl(alu_ctl, alu_op);
+module ALUControl(clk,alu_ctl, alu_op);
+    input clk;
     output reg[3:0]  alu_ctl;
     input [5:0] alu_op;
     
-    always case (alu_op)
-        6'h20: alu_ctl <=`ADD;       // add
-        6'h22: alu_ctl <=`SUB;       //subtract
-        6'h24: alu_ctl <=`AND;       // and
-        6'h25: alu_ctl <=`OR;        // or
-        6'h26: alu_ctl <=`XOR;       // XOR
-        6'h27: alu_ctl <=`NOR;       // nor
-        6'h2A: alu_ctl <=`SLT;       // slt
-        6'h2C: alu_ctl <= `NOOP;     // no operation
-        default: alu_ctl <= `ERROR;  // should not happen
-    endcase
+   
+   always @(posedge clk) begin
+        case (alu_op)
+            6'h20: alu_ctl <=`ADD;       // add
+            6'h22: alu_ctl <=`SUB;       //subtract
+            6'h24: alu_ctl <=`AND;       // and
+            6'h25: alu_ctl <=`OR;        // or
+            6'h26: alu_ctl <=`XOR;       // XOR
+            6'h27: alu_ctl <=`NOR;       // nor
+            6'h2A: alu_ctl <=`SLT;       // slt
+            6'h2C: alu_ctl <= `NOOP;     // no operation
+            default: alu_ctl <= `ERROR;  // should not happen
+        endcase
+    end
 endmodule
 
 // * ADD/SUB overflow detection inspired by

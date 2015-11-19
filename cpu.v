@@ -78,7 +78,6 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
         .pcin(pcin),
         .pcout(inst_addr)
         );
-    /*
     memory instruction_memory (
         .clk(clk),
         .address(inst_addr),
@@ -216,6 +215,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     );
 
     ALUControl ALUCtrl (
+        .clk(clk),
         .alu_ctl(ALUCtrlOut),
         .alu_op(ALUOp) 
     );
@@ -236,7 +236,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
         .funct(decoded_funct),
         .clk(clk)
         );
-        */
+        
 
     initial clk=0;
     always #10 clk =! clk;
