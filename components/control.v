@@ -1,3 +1,12 @@
+//----------------------------------------------------------------------------
+//  Control Unit
+//  Control Unit to set all the control wires based on the opcode and function.    
+//  Can Handle LW, SW, J, JAL, BNE, XORI R, ADD, SUB, SLT, SYSCALL, andNOOP
+//
+//
+//----------------------------------------------------------------------------
+
+    
 module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, RegDst, WriDataSel, ALUOp, opcode, funct, clk);
     input clk;
     input[5:0] opcode, funct;
@@ -8,27 +17,14 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
     parameter LW = 6'b100011, SW = 6'b101011, J = 6'b000010, JR = 6'b001000, JAL = 6'b000011 , BNE = 6'b000101, XORI = 6'b001110, 
     ADD = 6'b100000, ADDI = 6'b001000,  SUB = 6'b100010, SLT = 6'b101010, SYSCALL = 6'b001100, NOOP = 6'b000000, More = 6'b000000, err = 6'bxxxxxx;
     //opps in fist case: LW, SW, J, JAL, BNE, XORI
-    //opps that have opcode zero and go in second case: JR, ADD, SUB, SLT, SYSCALL, NOOP
+    //opps that have opcode zero and go in second case to check their funct: JR, ADD, SUB, SLT, SYSCALL, NOOP
     always @(opcode, funct) begin
 
         $display("opcode is %b", opcode);
         $display("funct is %b", funct);
-        case(opcode)
-/*
-            RegDst = ;
-            Jump = ;
-            Branch = ;
-            MemRead = ;
-            MemtoReg = ;
-            ALUOp = 6'b;
-            
-            MemWrite = ;
-            ALUSrc = ;
-            RegWrite = ;
-            WriDataSel = ;
-            JumpSel = ;
-*/
 
+        // case within case to handle each opcode (and function if need be). 
+        case(opcode)
         LW: begin
 
             $display("LW" );
@@ -136,6 +132,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             
         end
         err: begin
+            // this occurs when we get an undefined opcode (xxxxxx), in which case something is broken in our CPU and we should stop
+            //different to default, which handles opcode we haven't programmed in. 
             $display("ERROR: Next instruction opcode is %b. Shutting down.", opcode );
             $finish;            
         end
@@ -224,6 +222,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 JumpSel = 0; 
             end
             default: begin
+                //default to handle all other opps by doing a noop. 
                 $display("ERROR [@t=%0dns]: Control default case triggered [opcode = More]. Triggering NOOP behavior", $time); // Print error message to console
                 
                 RegDst = 0;
@@ -242,7 +241,9 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             endcase
         end 
         default: begin
-            $display("ERROR [@t=%0dns]: Control default case triggered [unknown opcode]. Triggering NOOP behavior", $time); // Print error message to console
+            //default to handle all other opps by doing a noop. 
+            $display("ERROR [@t=%0dns]: Control default case triggered [unknown opcode]. Triggering NOOP behavior", $time); 
+            // Print error message to console
             
             RegDst = 0;
             Jump = 0;
