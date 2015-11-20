@@ -13,7 +13,7 @@
 
 module cpu();
 // Point these parameters to the .dat files each memory module should load. Set to "" to load nothing.
-    parameter INSTR_MEM_DAT = "asmtest/simpleadds.dat";
+    parameter INSTR_MEM_DAT = "asmtest/reggert/simplejump.dat";
     parameter DATA_MEM_DAT = "";
 
 // CONNECTION DECLARATIONS
