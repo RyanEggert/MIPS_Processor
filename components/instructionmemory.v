@@ -14,14 +14,16 @@ module memory
     parameter loadfrom      = "NONE"
 )
 (
-    output wire [width-1:0]     data_out,
+    output reg [width-1:0]     data_out,
     input                       clk,
     input [addresswidth-1:0]    address
 );
 
     reg [width-1:0] mem [depth-1:0];
 
-    assign data_out = mem[address];
+    always @(address) begin 
+        data_out = mem[address];
+    end
     initial begin
         if ((loadfrom == "NONE") | (loadfrom == "")) begin
             $display("No memfile specified");
@@ -29,6 +31,7 @@ module memory
             $display("Loading \"%s\" into instruction memory", loadfrom);
             $readmemh(loadfrom, mem); // Still throws "can not open in read mode" error?
         end
+        data_out = 32'h381d3ffc;
     end
 
 endmodule

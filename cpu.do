@@ -13,6 +13,8 @@ sim:/dut/mux0/din1 \
 sim:/dut/mux0/mux_out \
 sim:/dut/mux1/din0 \
 sim:/dut/mux1/din1 \
-sim:/dut/mux1/mux_out 
+sim:/dut/mux1/mux_out \
+sim:/dut/regfile_comp/ReadRegister1 \
+sim:/dut/regfile_comp/ReadRegister2
 run 200
 wave zoom full

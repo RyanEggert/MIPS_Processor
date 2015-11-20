@@ -175,7 +175,7 @@ module cpu();
     );
 
 
-    regfile regfile (
+    regfile regfile_comp (
         .ReadData1(ReadData1),
         .ReadData2(ReadData2),
         .WriteData(SelectedWriteData),
@@ -248,6 +248,7 @@ module cpu();
 
     initial begin
         $display("CPU Starting...");
+        #20
         reset = 1;
         #20
         reset = 0;
