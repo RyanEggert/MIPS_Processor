@@ -57,7 +57,10 @@ sim:/test_cpu/dut/imm_signextend/out32 \
 sim:/test_cpu/dut/mux5/din0 \
 sim:/test_cpu/dut/mux5/din1 \
 sim:/test_cpu/dut/mux5/mux_ctl \
-sim:/test_cpu/dut/mux5/mux_out   
+sim:/test_cpu/dut/mux5/mux_out  \
+sim:/test_cpu/dut/instruction_memory/address  \
+sim:/test_cpu/dut/instruction_memory/shiftedadd  \
+sim:/test_cpu/dut/instruction_memory/mem
 
 run -all
 wave zoom full

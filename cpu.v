@@ -104,7 +104,7 @@ module cpu();
     adder adder_pc (
         .sum(adder_pc_sum),
         .a(inst_addr),
-        .b(32'd1)
+        .b(32'd4)
         );
 
     adder adder_alures (

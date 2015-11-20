@@ -18,11 +18,12 @@ module memory
     input                      clk,
     input [addresswidth-1:0]   address
 );
-
+    reg [width-1:0] shiftedadd;
     reg [width-1:0] mem [depth-1:0];
 
     always @(address) begin 
-        data_out = mem[address];
+        shiftedadd = address >> 2;
+        data_out = mem[shiftedadd];
     end
     initial begin
         if ((loadfrom == "NONE") | (loadfrom == "")) begin
