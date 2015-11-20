@@ -76,9 +76,10 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     pc pc_comp (
         .clk(clk),
         .reset(reset),
-        .pcin(pcin),
+        .pcin(PCUpdate),
         .pcout(inst_addr)
         );
+
     memory instruction_memory (
         .clk(clk),
         .address(inst_addr),
@@ -100,8 +101,8 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
 
     adder adder_pc (
         .sum(adder_pc_sum),
-        .a(instr),
-        .b(b)
+        .a(inst_addr),
+        .b(32'd4)
         );
 
     adder adder_alures (
@@ -243,6 +244,9 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
 
     initial begin
         $display("CPU Starting...");
-        pcin <= 32'd0;
+        reset = 1;
+        #20
+        reset = 0;
+
     end
 endmodule
