@@ -1,6 +1,6 @@
 addi $sp, $zero, 0x00003ffc
-xori $t0, $zero, 15
-xori $t1, $zero, 100
+lw $t0, startValue
+xori $t1, $zero, 200
 jal sectionOne
 j endScript
 
@@ -23,4 +23,9 @@ sectionTwo:
 
 endScript:
 	addi $v0, $zero, 10
+	sw $t1, finalCount
 	syscall
+	
+.data
+	finalCount: .word 0
+	startValue: .word 15

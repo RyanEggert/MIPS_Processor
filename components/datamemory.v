@@ -28,7 +28,7 @@ module datamemory
 
     reg [width-1:0] memory [depth-1:0];
 
-    always @(posedge clk) begin
+    always @(negedge clk) begin
         if(write_en) begin
             memory[address] <= data_in;
             $display("Writing 0x%h to 0x%h", data_in, address);
