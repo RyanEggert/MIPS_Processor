@@ -191,11 +191,22 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             end
             endcase
         end 
-
+        default: begin
+            $display("ERROR [@t=%0dns]: Control default case triggered. Triggering NOOP behavior", $time); // Print error message to console
+            
+            RegDst = 0;
+            Jump = 0;
+            Branch = 0;
+            MemRead = 0;
+            MemtoReg = 0;
+            ALUOp = 6'b101100;
+            
+            MemWrite = 0;
+            ALUSrc = 0;
+            RegWrite = 0;
+            WriDataSel = 0;
+            JumpSel = 0;
+        end
         endcase
-
-
-
-        
     end
 endmodule
