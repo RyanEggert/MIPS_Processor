@@ -10,7 +10,8 @@ module memory
 #(
     parameter addresswidth  = 32,
     parameter depth         = 2**14,
-    parameter width         = 32
+    parameter width         = 32,
+    parameter loadfrom      = "NONE"
 )
 (
     output wire [width-1:0]     data_out,
@@ -21,6 +22,13 @@ module memory
     reg [width-1:0] mem [depth-1:0];
 
     assign data_out = mem[address];
-    initial $readmemh("components/mem/instr.dat", mem); // Still throws "can not open in read mode" error?
+    initial begin
+        if ((loadfrom == "NONE") | (loadfrom == "")) begin
+            $display("No memfile specified");
+        end else begin
+            $display("Loading \"%s\" into instruction memory", loadfrom);
+            $readmemh(loadfrom, mem); // Still throws "can not open in read mode" error?
+        end
+    end
 
 endmodule

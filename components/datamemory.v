@@ -14,7 +14,8 @@ module datamemory
 #(
     parameter addresswidth  = 32,
     parameter depth         = 2**14,
-    parameter width         = 32
+    parameter width         = 32,
+    parameter loadfrom      = "NONE"
 )
 (
     input                       clk,
@@ -35,6 +36,14 @@ module datamemory
             data_out <= memory[address];
         end else begin
             data_out <= {width{1'bz}};
+        end
+    end
+    initial begin
+        if ((loadfrom == "NONE") | (loadfrom == "")) begin
+            $display("\tNo memfile specified");
+        end else begin
+            $display("\tLoading \"%s\" into data memory", loadfrom);
+            $readmemh(loadfrom, memory);
         end
     end
 

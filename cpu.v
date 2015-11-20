@@ -12,7 +12,11 @@
 
 
 module cpu();
+// Point these parameters to the .dat files each memory module should load. Comment out or set to "" to load nothing.
+    parameter INSTR_MEM_DAT = "asmtest/mc_finke_and_the_boys/file.dat";
+    parameter DATA_MEM_DAT = "asmtest/mc_finke_and_the_boys/data.dat";
 
+// CONNECTION DECLARATIONS
 //pc out    + others
     reg clk;
     reg reset;
@@ -58,7 +62,7 @@ module cpu();
     assign cin = 0;
 
 // control wires
-wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDataSel, RegDst;
+    wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDataSel, RegDst;
 
 //datamemory
     wire[31:0] DataMemOut;
@@ -79,8 +83,8 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
         .pcin(PCUpdate),
         .pcout(inst_addr)
         );
-    
-    memory instruction_memory (
+
+    memory #(.loadfrom(INSTR_MEM_DAT)) instruction_memory (
         .clk(clk),
         .address(inst_addr),
         .data_out(instr)
@@ -101,8 +105,8 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
 
     adder adder_pc (
         .sum(adder_pc_sum),
-        .a(instr),
-        .b(b)
+        .a(inst_addr),
+        .b(32'd4)
         );
 
     adder adder_alures (
@@ -200,7 +204,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
         .cout(cout)
     );
 
-    datamemory datamemory_cpu (
+    datamemory #(.loadfrom(DATA_MEM_DAT)) datamemory_cpu (
         .clk(clk),
         .address(ALUres),
         .data_out(DataMemOut),
@@ -244,5 +248,8 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
 
     initial begin
         $display("CPU Starting...");
+        reset = 1;
+        #20
+        reset = 0;
     end
 endmodule
