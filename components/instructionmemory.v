@@ -21,6 +21,6 @@ module memory
     reg [width-1:0] mem [depth-1:0];
 
     assign data_out = mem[address];
-    initial $readmemh("mem/instr.dat", mem); // Still throws "can not open in read mode" error?
+    initial $readmemh("components/mem/instr.dat", mem); // Still throws "can not open in read mode" error?
 
 endmodule

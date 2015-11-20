@@ -99,7 +99,10 @@ module ALUControl(alu_ctl, alu_op);
             6'h27: alu_ctl <=`NOR;       // nor
             6'h2A: alu_ctl <=`SLT;       // slt
             6'h2C: alu_ctl <= `NOOP;     // no operation
-            default: alu_ctl <= `ERROR;  // should not happen
+            default: begin
+                $display("ERROR [@t=%0dns]: ALUControl default case triggered.", $time); // Print error message to console
+                alu_ctl <= `ERROR;  // should not happen
+            end 
         endcase
     end
 endmodule

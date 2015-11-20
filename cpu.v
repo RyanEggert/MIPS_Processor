@@ -16,7 +16,8 @@ module cpu();
 //pc out    + others
     reg clk;
     reg reset;
-    wire [31:0] pcin, inst_addr, instr, imm32, shifted_imm32, mux_1_1, adder_pc_sum;
+    reg [31:0] pcin;
+    wire [31:0] inst_addr, instr, imm32, shifted_imm32, mux_1_1, adder_pc_sum;
     wire [27:0] shifter_pc_out;
 
 //instruction out 
@@ -242,5 +243,6 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
 
     initial begin
         $display("CPU Starting...");
+        pcin <= 32'd0;
     end
 endmodule
