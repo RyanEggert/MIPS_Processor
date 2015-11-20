@@ -25,16 +25,14 @@ module datamemory
     input                       read_en,
     input [width-1:0]           data_in
 );
-
     reg [width-1:0] memory [depth-1:0];
-
     always @(negedge clk) begin
         if(write_en) begin
-            memory[address] <= data_in;
-            $display("Writing 0x%h to 0x%h", data_in, address);
+            memory[address[11:0] >> 2] <= data_in;
+            $display("Writing 0x%h to 0x%h", data_in, address[11:0] >> 2);
         end
         if (read_en) begin
-            data_out <= memory[address];
+            data_out <= memory[address[11:0] >> 2];
         end else begin
             data_out <= {width{1'bz}};
         end

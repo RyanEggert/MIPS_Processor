@@ -69,7 +69,11 @@ sim:/test_cpu/dut/mux7/mux_ctl \
 sim:/test_cpu/dut/mux7/mux_out  \
 sim:/test_cpu/dut/instruction_memory/address  \
 sim:/test_cpu/dut/instruction_memory/shiftedadd  \
-sim:/test_cpu/dut/instruction_memory/mem
+sim:/test_cpu/dut/instruction_memory/mem \
+sim:/test_cpu/dut/datamemory_cpu/address \
+sim:/test_cpu/dut/datamemory_cpu/write_en \
+sim:/test_cpu/dut/datamemory_cpu/read_en \
+sim:/test_cpu/dut/datamemory_cpu/data_in 
 
 run -all
 wave zoom full
