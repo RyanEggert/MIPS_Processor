@@ -9,7 +9,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
     ADD = 6'b100000, ADDI = 6'b001000,  SUB = 6'b100010, SLT = 6'b101010, SYSCALL = 6'b001100, NOOP = 6'b000000, More = 6'b000000, err = 6'bxxxxxx;
     //opps in fist case: LW, SW, J, JAL, BNE, XORI
     //opps that have opcode zero and go in second case: JR, ADD, SUB, SLT, SYSCALL, NOOP
-    always @(posedge clk) begin
+    always @(opcode, funct) begin
 
         $display("opcode is %b", opcode);
         $display("funct is %b", funct);
