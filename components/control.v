@@ -6,7 +6,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
     output reg[5:0] ALUOp;
 
     parameter LW = 6'b100011, SW = 6'b101011, J = 6'b000010, JR = 6'b001000, JAL = 6'b000011 , BNE = 6'b000101, XORI = 6'b001110, 
-    ADD = 6'b100000, SUB = 6'b100010, SLT = 6'b101010, SYSCALL = 6'b001100, NOOP = 6'b000000, More = 6'b000000;
+    ADD = 6'b100000, ADDI = 6'b001000,  SUB = 6'b100010, SLT = 6'b101010, SYSCALL = 6'b001100, NOOP = 6'b000000, More = 6'b000000;
     //opps in fist case: LW, SW, J, JAL, BNE, XORI
     //opps that have opcode zero and go in second case: JR, ADD, SUB, SLT, SYSCALL, NOOP
     always @(posedge clk) begin
@@ -103,7 +103,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
         end
         XORI: begin 
             $display("XORI" );
-            RegDst = 1 ;
+            RegDst = 0 ;
             Jump = 0;
             Branch = 0;
             MemRead = 0;
@@ -113,6 +113,22 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             MemWrite = 0;
             ALUSrc = 1;
             RegWrite = 1;
+            WriDataSel = 1;
+        end
+        ADDI: begin
+            $display("ADDI");
+            RegDst = 0 ;
+            Jump = 0;
+            Branch = 0;
+            MemRead = 0;
+            MemtoReg = 0;
+            ALUOp = 6'b100000;
+            
+            MemWrite = 0;
+            ALUSrc = 1;
+            RegWrite = 1;
+            WriDataSel = 1;
+
             
         end
         More: begin 
@@ -142,6 +158,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 MemWrite = 0;
                 ALUSrc = 0;
                 RegWrite = 1;
+                WriDataSel = 1;
             end
             SUB:  begin
                 $display("SUB" );
@@ -154,7 +171,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 
                 MemWrite = 0;
                 ALUSrc = 0;
-                RegWrite = 1;             
+                RegWrite = 1;
+                WriDataSel = 1;             
             end
             SLT:  begin 
                 $display("SLT" );
@@ -168,7 +186,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 
                 MemWrite = 0;
                 ALUSrc = 0;
-                RegWrite = 1;            
+                RegWrite = 1;  
+                WriDataSel = 1;          
             end
             SYSCALL: begin
                 $display("SYSCALL" );
@@ -188,6 +207,22 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 RegWrite = 0;
                 WriDataSel = 0;
                 JumpSel = 0; 
+            end
+            default: begin
+                $display("ERROR [@t=%0dns]: Control default case triggered. Triggering NOOP behavior", $time); // Print error message to console
+                
+                RegDst = 0;
+                Jump = 0;
+                Branch = 0;
+                MemRead = 0;
+                MemtoReg = 0;
+                ALUOp = 6'b101100;
+                
+                MemWrite = 0;
+                ALUSrc = 0;
+                RegWrite = 0;
+                WriDataSel = 0;
+                JumpSel = 0;
             end
             endcase
         end 
