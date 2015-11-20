@@ -34,6 +34,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             $display("LW" );
             RegDst = 0;
             Jump = 0;
+            JumpSel = 0;
             Branch = 0;
             MemRead = 1;
             MemtoReg = 1;
@@ -50,6 +51,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
 
             RegDst = 0;
             Jump = 0;
+            JumpSel = 0;
             Branch = 0;
             MemRead = 0;
             MemtoReg = 0;
@@ -57,12 +59,12 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             MemWrite = 1;
             ALUSrc = 1;
             RegWrite = 0;
-
         end 
         J: begin 
             $display("J" );
 
             Jump = 1;
+            JumpSel = 0;
             Branch = 0;
             MemRead = 0;
             MemtoReg = 0;
@@ -71,11 +73,11 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             MemWrite = 0;
             ALUSrc = 0;
             RegWrite = 0;
-            JumpSel = 0;
         end
         JAL: begin 
             $display("JAL" );
             Jump = 1;
+            JumpSel = 0;
             Branch = 0;
             MemRead = 0;
             MemtoReg = 0;
@@ -85,12 +87,12 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             ALUSrc = 0;
             RegWrite = 1;
             WriDataSel = 0;
-            JumpSel = 0;
         end
         BNE: begin 
             $display("BNE" );
             RegDst = 0;
             Jump = 0;
+            JumpSel = 0;
             Branch = 1;
             MemRead = 0;
             MemtoReg = 0;
@@ -105,6 +107,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             $display("XORI" );
             RegDst = 0 ;
             Jump = 0;
+            JumpSel = 0;
             Branch = 0;
             MemRead = 0;
             MemtoReg = 0;
@@ -119,6 +122,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             $display("ADDI");
             RegDst = 0 ;
             Jump = 0;
+            JumpSel = 0;
             Branch = 0;
             MemRead = 0;
             MemtoReg = 0;
@@ -140,6 +144,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             JR: begin 
                 $display("JR" );
                 Jump = 1;
+                JumpSel = 1;                
                 Branch = 0;
                 MemRead = 0;
                 MemtoReg = 0;
@@ -148,12 +153,12 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 MemWrite = 0;
                 ALUSrc = 0;
                 RegWrite = 0;
-                JumpSel = 1;                
             end
             ADD: begin
                 $display("ADD");
                 RegDst = 1;
                 Jump = 0;
+                JumpSel = 0;
                 Branch = 0;
                 MemRead = 0;
                 MemtoReg = 0;
@@ -168,6 +173,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 $display("SUB" );
                 RegDst = 1;
                 Jump = 0;
+                JumpSel = 0;
                 Branch = 0;
                 MemRead = 0;
                 MemtoReg = 0;
@@ -183,6 +189,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
 
                 RegDst = 1;
                 Jump = 0;
+                JumpSel = 0;
                 Branch = 0;
                 MemRead = 0;
                 MemtoReg = 0;
