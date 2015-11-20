@@ -78,6 +78,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
         .pcin(pcin),
         .pcout(inst_addr)
         );
+    
     memory instruction_memory (
         .clk(clk),
         .address(inst_addr),

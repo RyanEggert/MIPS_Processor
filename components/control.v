@@ -11,6 +11,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
     //opps that have opcode zero and go in second case: JR, ADD, SUB, SLT, SYSCALL, NOOP
     always @(posedge clk) begin
 
+        $display("opcode is \b ", opcode);
+        $display("funct is \b ", funct);
         case(opcode)
 /*
             RegDst = ;
@@ -28,6 +30,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
 */
 
         LW: begin
+
+            $display("LW" );
             RegDst = 0;
             Jump = 0;
             Branch = 0;
@@ -42,6 +46,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
         end
 
         SW: begin 
+            $display("SW" );
+
             RegDst = 0;
             Jump = 0;
             Branch = 0;
@@ -54,6 +60,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
 
         end 
         J: begin 
+            $display("J" );
+
             Jump = 1;
             Branch = 0;
             MemRead = 0;
@@ -66,6 +74,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             JumpSel = 0;
         end
         JAL: begin 
+            $display("JAL" );
             Jump = 1;
             Branch = 0;
             MemRead = 0;
@@ -79,6 +88,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             JumpSel = 0;
         end
         BNE: begin 
+            $display("BNE" );
             RegDst = 0;
             Jump = 0;
             Branch = 1;
@@ -92,6 +102,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
 
         end
         XORI: begin 
+            $display("XORI" );
             RegDst = 1 ;
             Jump = 0;
             Branch = 0;
@@ -107,6 +118,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
         More: begin 
             case(funct)
             JR: begin 
+                $display("JR" );
                 Jump = 1;
                 Branch = 0;
                 MemRead = 0;
@@ -119,6 +131,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 JumpSel = 1;                
             end
             ADD: begin
+                $display("ADD");
                 RegDst = 1;
                 Jump = 0;
                 Branch = 0;
@@ -131,6 +144,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 RegWrite = 1;
             end
             SUB:  begin
+                $display("SUB" );
                 RegDst = 1;
                 Jump = 0;
                 Branch = 0;
@@ -143,6 +157,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 RegWrite = 1;             
             end
             SLT:  begin 
+                $display("SLT" );
+
                 RegDst = 1;
                 Jump = 0;
                 Branch = 0;
@@ -155,10 +171,11 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 RegWrite = 1;            
             end
             SYSCALL: begin
+                $display("SYSCALL" );
                     $finish;            
                 end
             NOOP:  begin
-
+                $display("NOOP" );
                 RegDst = 0;
                 Jump = 0;
                 Branch = 0;
