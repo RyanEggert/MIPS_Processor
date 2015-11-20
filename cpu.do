@@ -14,5 +14,5 @@ sim:/dut/mux0/mux_out \
 sim:/dut/mux1/din0 \
 sim:/dut/mux1/din1 \
 sim:/dut/mux1/mux_out 
-run 100
+run 200
 wave zoom full
