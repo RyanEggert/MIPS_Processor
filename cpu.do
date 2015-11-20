@@ -7,6 +7,14 @@ sim:/dut/clk \
 sim:/dut/pcin \
 sim:/dut/inst_addr \
 sim:/dut/instr \
+sim:/dut/decoded_opcode \
+sim:/dut/decoded_funct \
+sim:/dut/decoded_rs \
+sim:/dut/decoded_rt \
+sim:/dut/decoded_rd \
+sim:/dut/decoded_shamt \
+sim:/dut/decoded_imm16 \
+sim:/dut/decoded_address \
 sim:/dut/adder_pc_sum \
 sim:/dut/mux0/din0 \
 sim:/dut/mux0/din1 \

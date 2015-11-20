@@ -31,7 +31,7 @@ module memory
             $display("Loading \"%s\" into instruction memory", loadfrom);
             $readmemh(loadfrom, mem); // Still throws "can not open in read mode" error?
         end
-        data_out = 32'h381d3ffc;
+        data_out = 32'h201d3ffc;
     end
 
 endmodule
