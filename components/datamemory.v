@@ -31,6 +31,7 @@ module datamemory
     always @(posedge clk) begin
         if(write_en) begin
             memory[address] <= data_in;
+            $display("Writing 0x%h to 0x%h", data_in, address);
         end
         if (read_en) begin
             data_out <= memory[address];
@@ -40,7 +41,7 @@ module datamemory
     end
     initial begin
         if ((loadfrom == "NONE") | (loadfrom == "")) begin
-            $display("\tNo memfile specified");
+            $display("\tNo data memory memfile specified");
         end else begin
             $display("\tLoading \"%s\" into data memory", loadfrom);
             $readmemh(loadfrom, memory);

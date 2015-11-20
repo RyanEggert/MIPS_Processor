@@ -114,16 +114,21 @@ module register32(q, d, wrenable, clk);
     input wrenable;
     input clk;
 
-    generate
-        genvar i; // instantiate variable for generate sequence
-        for (i=0; i<SIZE; i=i+1) begin
-            always @(posedge clk) begin
-                if(wrenable) begin
-                    q[i] = d[i];
-                end
-            end
+    always @(posedge clk ) begin
+        if (wrenable) begin
+            q = d;
         end
-    endgenerate
+    end
+    // generate
+    //     genvar i; // instantiate variable for generate sequence
+    //     for (i=0; i<SIZE; i=i+1) begin
+    //         always @(negedge clk) begin
+    //             if(wrenable) begin
+    //                 q[i] = d[i];
+    //             end
+    //         end
+    //     end
+    // endgenerate
 endmodule
 
 //------------------------------------------------------------------------------

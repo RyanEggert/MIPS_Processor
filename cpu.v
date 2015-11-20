@@ -12,9 +12,9 @@
 
 
 module cpu();
-// Point these parameters to the .dat files each memory module should load. Comment out or set to "" to load nothing.
-    parameter INSTR_MEM_DAT = "asmtest/mc_finke_and_the_boys/file.dat";
-    parameter DATA_MEM_DAT = "asmtest/mc_finke_and_the_boys/data.dat";
+// Point these parameters to the .dat files each memory module should load. Set to "" to load nothing.
+    parameter INSTR_MEM_DAT = "asmtest/simpleadds.dat";
+    parameter DATA_MEM_DAT = "";
 
 // CONNECTION DECLARATIONS
 //pc out    + others
@@ -31,9 +31,7 @@ module cpu();
     wire[25:0] decoded_address;
 
 //adder out
-    wire[31:0]   b;
     wire[31:0]  sum;
-    assign b = 32'd4;
 
 //regfile out
     wire[31:0] ReadData1, ReadData2;
@@ -106,7 +104,7 @@ module cpu();
     adder adder_pc (
         .sum(adder_pc_sum),
         .a(inst_addr),
-        .b(32'd4)
+        .b(32'd1)
         );
 
     adder adder_alures (
@@ -244,13 +242,19 @@ module cpu();
         
 
     initial clk=0;
-    always #10 clk =! clk;
+    always begin
+        #10 clk =! clk;
+        if (clk == 1) begin
+            $display("Clock HIGH @t=%0dns", $time);
+        end else begin
+            $display("Clock LOW @t=%0dns", $time);
+        end
+    end
 
     initial begin
         $display("CPU Starting...");
-        #20
         reset = 1;
-        #20
+        #11
         reset = 0;
     end
 endmodule

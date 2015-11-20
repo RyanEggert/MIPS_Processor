@@ -132,7 +132,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             
         end
         err: begin
-            $display("error" );
+            $display("ERROR: Next instruction opcode is %b. Shutting down.", opcode );
             $finish;            
         end
         More: begin 
@@ -217,7 +217,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 JumpSel = 0; 
             end
             default: begin
-                $display("ERROR [@t=%0dns]: Control default case triggered. Triggering NOOP behavior", $time); // Print error message to console
+                $display("ERROR [@t=%0dns]: Control default case triggered [opcode = More]. Triggering NOOP behavior", $time); // Print error message to console
                 
                 RegDst = 0;
                 Jump = 0;
@@ -235,7 +235,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
             endcase
         end 
         default: begin
-            $display("ERROR [@t=%0dns]: Control default case triggered. Triggering NOOP behavior", $time); // Print error message to console
+            $display("ERROR [@t=%0dns]: Control default case triggered [unknown opcode]. Triggering NOOP behavior", $time); // Print error message to console
             
             RegDst = 0;
             Jump = 0;

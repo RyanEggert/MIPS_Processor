@@ -67,7 +67,7 @@ module MIPSALU (alu_res, zero, ovf, cout, a, b, cin, alu_ctl) ;
             
             default: begin
                 alu_res = 0;           // Something's wrong.
-                $display("ERROR [@t=%0dns]: ALU default case triggered.", $time); // Print error message to console
+                $display("ERROR [@t=%0dns]: ALU default case triggered. [alu_ctl = %b, a = %d, b=%d, cin = %d]", $time, alu_ctl, a, b, cin); // Print error message to console
             end
         endcase
 
@@ -87,8 +87,7 @@ endmodule
 module ALUControl(alu_ctl, alu_op);
     output reg[3:0]  alu_ctl;
     input [5:0] alu_op;
-    
-   
+
    always @(alu_op) begin
         case (alu_op)
             6'h20: alu_ctl <=`ADD;       // add
