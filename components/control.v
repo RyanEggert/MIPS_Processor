@@ -11,8 +11,8 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
     //opps that have opcode zero and go in second case: JR, ADD, SUB, SLT, SYSCALL, NOOP
     always @(posedge clk) begin
 
-        $display("opcode is \b ", opcode);
-        $display("funct is \b ", funct);
+        $display("opcode is %b", opcode);
+        $display("funct is %b", funct);
         case(opcode)
 /*
             RegDst = ;
