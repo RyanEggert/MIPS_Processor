@@ -76,7 +76,7 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
     pc pc_comp (
         .clk(clk),
         .reset(reset),
-        .pcin(pcin),
+        .pcin(PCUpdate),
         .pcout(inst_addr)
         );
     
@@ -244,6 +244,5 @@ wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDa
 
     initial begin
         $display("CPU Starting...");
-        pcin <= 32'd0;
     end
 endmodule

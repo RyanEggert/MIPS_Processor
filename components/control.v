@@ -6,7 +6,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
     output reg[5:0] ALUOp;
 
     parameter LW = 6'b100011, SW = 6'b101011, J = 6'b000010, JR = 6'b001000, JAL = 6'b000011 , BNE = 6'b000101, XORI = 6'b001110, 
-    ADD = 6'b100000, ADDI = 6'b001000,  SUB = 6'b100010, SLT = 6'b101010, SYSCALL = 6'b001100, NOOP = 6'b000000, More = 6'b000000;
+    ADD = 6'b100000, ADDI = 6'b001000,  SUB = 6'b100010, SLT = 6'b101010, SYSCALL = 6'b001100, NOOP = 6'b000000, More = 6'b000000, err = 6'bxxxxxx;
     //opps in fist case: LW, SW, J, JAL, BNE, XORI
     //opps that have opcode zero and go in second case: JR, ADD, SUB, SLT, SYSCALL, NOOP
     always @(posedge clk) begin
@@ -131,6 +131,10 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
 
             
         end
+        err: begin
+            $display("error" );
+            $finish;            
+        end
         More: begin 
             case(funct)
             JR: begin 
@@ -189,6 +193,10 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                 RegWrite = 1;  
                 WriDataSel = 1;          
             end
+            err: begin
+                $display("error" );
+                    $finish;            
+                end 
             SYSCALL: begin
                 $display("SYSCALL" );
                     $finish;            
