@@ -37,6 +37,7 @@ sim:/dut/alu_cpu/alu_ctl \
 sim:/dut/alu_cpu/a \
 sim:/dut/alu_cpu/b \
 sim:/dut/alu_cpu/alu_res \
+sim:/dut/alu_cpu/zero \
 sim:/dut/ALUSrc \
 sim:/dut/decoded_rs \
 sim:/dut/ReadData1 \
@@ -58,6 +59,14 @@ sim:/test_cpu/dut/mux5/din0 \
 sim:/test_cpu/dut/mux5/din1 \
 sim:/test_cpu/dut/mux5/mux_ctl \
 sim:/test_cpu/dut/mux5/mux_out  \
+sim:/test_cpu/dut/mux6/din0 \
+sim:/test_cpu/dut/mux6/din1 \
+sim:/test_cpu/dut/mux6/mux_ctl \
+sim:/test_cpu/dut/mux6/mux_out  \
+sim:/test_cpu/dut/mux7/din0 \
+sim:/test_cpu/dut/mux7/din1 \
+sim:/test_cpu/dut/mux7/mux_ctl \
+sim:/test_cpu/dut/mux7/mux_out  \
 sim:/test_cpu/dut/instruction_memory/address  \
 sim:/test_cpu/dut/instruction_memory/shiftedadd  \
 sim:/test_cpu/dut/instruction_memory/mem

@@ -205,7 +205,7 @@ module control(  Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, Ju
                     $finish;            
                 end 
             SYSCALL: begin
-                $display("SYSCALL" );
+                $display("SYSCALL recieved, processor shutting down." );
                     $finish;            
                 end
             NOOP:  begin

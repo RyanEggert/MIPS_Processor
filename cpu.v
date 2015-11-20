@@ -13,7 +13,7 @@
 
 module cpu();
 // Point these parameters to the .dat files each memory module should load. Set to "" to load nothing.
-    parameter INSTR_MEM_DAT = "asmtest/reggert/simplejump.dat";
+    parameter INSTR_MEM_DAT = "asmtest/mc_finke_and_the_boys/file4.dat";
     parameter DATA_MEM_DAT = "";
 
 // CONNECTION DECLARATIONS
@@ -56,7 +56,7 @@ module cpu();
 
 //alu
     wire[31:0] ALUres;
-    wire zero, cin, cout, ovf;
+    wire not_zero, ALUzero, cin, cout, ovf;
     assign cin = 0;
 
 // control wires
@@ -135,7 +135,9 @@ module cpu();
         .mux_out(SelectedJump)
     );
 
-    and andgate(andout, Branch, zero);
+    not bne_inv(not_zero, ALUzero);
+    and andgate(andout, Branch, not_zero);
+
 
     mux_2d mux1 (
         .mux_ctl(andout),
