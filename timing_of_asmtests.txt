@@ -1,0 +1,30 @@
+MCFinke and the boys
+File6: Time: 1970 ns  Iteration: 6 Clock Cycles: 99
+File5: 1970 ns = 99 CC
+File4: 2110 ns = 106 CC
+File2: 1970 ns = 9 CC
+filere: 1970 ns = 99 CC
+
+JasonJordanThuc
+file: 690 ns = 35 CC
+
+KaiIsaacDavid
+file: just a clock according to output? indefinite
+
+meg_griff_brenna
+file: 330 ns = 17 CC
+
+nur_patrick_sarah
+file: indefinitely loops
+
+reggert
+simpleadds: 170 ns = 9 CC
+simplejump: 210 ns = 11 CC
+
+yolo_is_so_2013
+file: runs indefinitely
+
+Yuzhong_Selina_Hieu
+file: 310 ns = 16 CC
+
+

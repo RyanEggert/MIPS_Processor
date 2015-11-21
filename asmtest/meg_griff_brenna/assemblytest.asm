@@ -1,3 +1,4 @@
+addi $sp, $zero, 0x00003ffc
 #Test
 #MUST USE: LW, J, JR, JAL, BNE, XORI, ADD, SUB, SLT 
 

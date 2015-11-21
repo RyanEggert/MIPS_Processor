@@ -1,3 +1,4 @@
+addi $sp, $zero, 0x00003ffc
 #is_prime checks if a number, N, is prime by going through all number up to N and seeing if any of those are factors of N
 # $a0 is N
 # $t0 is a possible factor of N

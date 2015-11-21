@@ -1,3 +1,4 @@
+addi $sp, $zero, 0x00003ffc
 addi $t0, $zero, 1
 addi $t1, $zero, 10
 addi $t2, $zero, 100

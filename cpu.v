@@ -13,8 +13,8 @@
 
 module cpu();
 // Point these parameters to the .dat files each memory module should load. Set to "" to load nothing.
-    parameter INSTR_MEM_DAT = "asmtest/mc_finke_and_the_boys/file6.dat";
-    parameter DATA_MEM_DAT = "asmtest/mc_finke_and_the_boys/data6.dat";
+    parameter INSTR_MEM_DAT = "asmtest/Yuzhong_Selina_Hieu/file.dat";
+    parameter DATA_MEM_DAT = "";
 
 // CONNECTION DECLARATIONS
 //pc out    + others

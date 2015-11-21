@@ -1,3 +1,4 @@
+addi $sp, $zero, 0x00003ffc
 # Sum the multiples of 3 and 5 between 0 and 100, inclusive.
 # Expected output: $s0 is 0x972
 xori $a0, $zero, 100

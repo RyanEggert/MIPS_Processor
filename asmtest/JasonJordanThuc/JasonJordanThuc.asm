@@ -1,3 +1,4 @@
+addi $sp, $zero, 0x00003ffc
 # Multiply opA*opB, store result to $s0
 # XORI $s0 with the expected result and then some other number
 # To change values of opA and opB, modify .data

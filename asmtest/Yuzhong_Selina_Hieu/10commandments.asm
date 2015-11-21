@@ -1,3 +1,4 @@
+addi $sp, $zero, 0x00003ffc
 # Selina, Yuzhong, Hieu
 
 add $a0, $zero, 6 # Set a0
