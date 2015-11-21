@@ -10,6 +10,7 @@ file: 690 ns = 35 CC
 
 KaiIsaacDavid
 file: just a clock according to output? indefinite
+file1: 490 ns = 25 CC (revised original asmtest to include a system call)
 
 meg_griff_brenna
 file: 330 ns = 17 CC
@@ -23,6 +24,7 @@ simplejump: 210 ns = 11 CC
 
 yolo_is_so_2013
 file: runs indefinitely
+file1: even after adding system call still won't stop
 
 Yuzhong_Selina_Hieu
 file: 310 ns = 16 CC

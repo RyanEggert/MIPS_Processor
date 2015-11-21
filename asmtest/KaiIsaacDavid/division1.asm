@@ -35,11 +35,10 @@ LOOP_END:
 # Write results to registers
 add $v0, $t2, $zero
 add $v1, $t0, $zero
-
+j DONE
 # finish with infinite jump loop
 DONE:
-j DONE
-
+syscall
 
 # Modify opA and opB to compute different quotients
 .data

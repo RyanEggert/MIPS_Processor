@@ -19,7 +19,7 @@ NEXT_FACT:
 addi $t0, $t0, 1
 beq $t0, $a0, PRIME # branch to PRIME if $t0 makes it to $a0 without triggering NOTPRIME
 add $t1, $t0, $zero # initialize $t1 as $t0
-
+j ADD_LOOP
 # loop through all multiples of $t0 up to N and branch back to NEXT_FACT if a multiple of $t0 is greater than N and $t1 is less than N
 ADD_LOOP:
 add $t1, $t1, $t0
@@ -35,6 +35,7 @@ j END
 # return '0xb' N is prime
 PRIME:
 addi $v0, $zero, 0xb
+j END
 
 END:
-
+syscall
