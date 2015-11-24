@@ -15,7 +15,7 @@ module instructiondecode(opcode, rs, rt, rd, shamt, funct, imm16, address, clk, 
     output reg[15:0] imm16;
     output reg[25:0] address;
 
-    always @(posedge clk, instr) begin
+    always @(instr) begin
         // All Instructions
         opcode <= instr[31:26];
 

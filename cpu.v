@@ -10,11 +10,20 @@
 `include "components/shifter.v"
 `include "components/signextend.v"
 
-
+//----------------------------------------------------------------------------
+//  cpu
+//      MIPS CPU
+//          Single-cycle processor which implements a subset of the MIPS
+//          instruction set--LW, SW, J, JAL, JR, BNE, XORI, ADD, ADDI, SUB,
+//          SLT, SYSCALL, and NOOP. INSTR_MEM_DAT and DATA_MEM_DAT parameters
+//          are provided to allow loading of hexadecimal data files to 
+//          instruction memory and data memory, respectively.  
+//   
+//----------------------------------------------------------------------------
 module cpu();
 // Point these parameters to the .dat files each memory module should load. Set to "" to load nothing.
-    parameter INSTR_MEM_DAT = "asmtest/yolo_is_so_2013/file1.dat";
-    parameter DATA_MEM_DAT = "";
+    parameter INSTR_MEM_DAT = "asmtest/mc_finke_and_the_boys/file6.dat";
+    parameter DATA_MEM_DAT = "asmtest/mc_finke_and_the_boys/data6.dat";
 
 // CONNECTION DECLARATIONS
 //pc out    + others
@@ -54,6 +63,11 @@ module cpu();
 //mux5
     wire[31:0] ALU_B;
 
+//mux6
+    wire[31:0] mux6out;
+//mux7 	
+    wire[31:0] SelectedWriteData;
+
 //alu
     wire[31:0] ALUres;
     wire not_zero, ALUzero, cin, cout, ovf;
@@ -65,10 +79,6 @@ module cpu();
 //datamemory
     wire[31:0] DataMemOut;
 
-//mux6
-    wire[31:0] mux6out;
-//mux7 	
-    wire[31:0] SelectedWriteData;
 
 //ALUCtrl
     wire[3:0] ALUCtrlOut;
@@ -104,7 +114,7 @@ module cpu();
     adder adder_pc (
         .sum(adder_pc_sum),
         .a(inst_addr),
-        .b(32'd4)
+        .b(32'd4)   // Value with which to increment the program counter during normal operation.
         );
 
     adder adder_alures (
@@ -135,7 +145,7 @@ module cpu();
         .mux_out(SelectedJump)
     );
 
-    not bne_inv(not_zero, ALUzero);
+    not bne_inv(not_zero, ALUzero); // Without this inverter, we would see branch-if-equal behavior.
     and andgate(andout, Branch, not_zero);
 
 
@@ -163,7 +173,7 @@ module cpu();
     mux_2d #(.width(5)) mux4 (
         .mux_ctl(Jump),
         .din0(SelectedWriteRegister1),
-        .din1(5'd31),
+        .din1(5'd31),   // Register $31/$ra
         .mux_out(SelectedWriteRegister2)
     );
 
@@ -255,8 +265,8 @@ module cpu();
 
     initial begin
         $display("CPU Starting...");
-        reset = 1;
+        reset = 1; // Assert RESET to set the program counter to zero
         #11
-        reset = 0;
+        reset = 0; // Begin execution.
     end
 endmodule
