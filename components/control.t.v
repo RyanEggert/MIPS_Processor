@@ -39,8 +39,7 @@ module test_control(dutpassed);
 
     initial begin
 		
-
-		$display ("Control Testing start:");
+    	$display("Starting CONTROL Tests @time = %0dns...", $time);
 		opcode = 6'b100011;
 		funct = 6'b000000;
 		
@@ -183,17 +182,22 @@ module test_control(dutpassed);
 			$display("NOOP Failed");
 		end
 
-		$display ("Control Testing complete");
-		
-
-		opcode = 6'b000000;
-		funct = 6'b001100;
-		#20	
-		//TestSYSCALL
-		if ( 1 ==0) begin			
-			dutpassed = 0;
-			$display("SYSCALL Failed");
+		$display("CONTROL Tests Complete @time = %0dns.", $time);
+		if (dutpassed == 1) begin
+		    $display("\tCONTROL PASSED");
+		end else begin
+		    $display("\tCONTROL FAILED");
 		end
+	
+
+		// opcode = 6'b000000;
+		// funct = 6'b001100;
+		// #20	
+		// //TestSYSCALL
+		// if ( 1 ==0) begin			
+		// 	dutpassed = 0;
+		// 	$display("SYSCALL Failed");
+		// end
 
 	
 	end
