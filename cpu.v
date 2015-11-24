@@ -21,66 +21,66 @@
 //   
 //----------------------------------------------------------------------------
 module cpu();
-// Point these parameters to the .dat files each memory module should load. Set to "" to load nothing.
+    // Point these parameters to the .dat files each memory module should load. Set to "" to load nothing.
     parameter INSTR_MEM_DAT = "asmtest/mc_finke_and_the_boys/file6.dat";
     parameter DATA_MEM_DAT = "asmtest/mc_finke_and_the_boys/data6.dat";
 
-// CONNECTION DECLARATIONS
-//pc out    + others
+    // CONNECTION DECLARATIONS
+    //pc out    + others
     reg clk;
     reg reset;
     reg [31:0] pcin;
     wire [31:0] inst_addr, instr, imm32, shifted_imm32, mux_1_1, adder_pc_sum;
     wire [27:0] shifter_pc_out;
 
-//instruction out 
+    //instruction out 
     wire[5:0] decoded_opcode, decoded_funct;
     wire[4:0] decoded_rs, decoded_rt, decoded_rd, decoded_shamt;
     wire[15:0] decoded_imm16;
     wire[25:0] decoded_address;
 
-//adder out
+    //adder out
     wire[31:0]  sum;
 
-//regfile out
+    //regfile out
     wire[31:0] ReadData1, ReadData2;
 
-//mux0
+    //mux0
     wire[31:0] SelectedJump;
 
-//mux1
+    //mux1
     wire[31:0] nonJumpPC;
     
-//mux2
+    //mux2
     wire[31:0] PCUpdate;
 
-//mux3
+    //mux3
     wire[4:0] SelectedWriteRegister1;
 
-//mux4
+    //mux4
     wire[4:0] SelectedWriteRegister2;
     
-//mux5
+    //mux5
     wire[31:0] ALU_B;
 
-//mux6
+    //mux6
     wire[31:0] mux6out;
-//mux7 	
+    //mux7 	
     wire[31:0] SelectedWriteData;
 
-//alu
+    //alu
     wire[31:0] ALUres;
     wire not_zero, ALUzero, cin, cout, ovf;
     assign cin = 0;
 
-// control wires
+    // control wires
     wire Jump, Branch, MemRead, MemtoReg, MemWrite, ALUSrc, RegWrite, JumpSel, WriDataSel, RegDst;
 
-//datamemory
+    //datamemory
     wire[31:0] DataMemOut;
 
 
-//ALUCtrl
+    //ALUCtrl
     wire[3:0] ALUCtrlOut;
     wire[5:0] ALUOp;
 
@@ -252,7 +252,7 @@ module cpu();
         .clk(clk)
         );
         
-
+    // Configure 50MHz clock + status console outputs. 
     initial clk=0;
     always begin
         #10 clk =! clk;
