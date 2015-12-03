@@ -38,7 +38,7 @@ module test_control(dutpassed);
 	*/
 
     initial begin
-		
+		dutpassed = 1;
     	$display("Starting CONTROL Tests @time = %0dns...", $time);
 		opcode = 6'b100011;
 		funct = 6'b000000;
@@ -123,7 +123,7 @@ module test_control(dutpassed);
 		funct = 6'b000000;
 		#20	
 		//TestXORi
-		if ( RegDst != 1 || Jump != 0 || Branch !=0 || MemRead !=0 || MemtoReg !=0 || ALUOp != 6'b100110 || MemWrite != 0 || ALUSrc !=1 || RegWrite != 1) begin			
+		if ( RegDst != 0 || Jump != 0 || Branch !=0 || MemRead !=0 || MemtoReg !=0 || ALUOp != 6'b100110 || MemWrite != 0 || ALUSrc !=1 || RegWrite != 1) begin			
 			dutpassed = 0;
 			$display("XORi Failed");
 		end
